@@ -1,0 +1,122 @@
+
+/* Variáveis */
+
+:root{
+    --background: #0B0B0D;
+    --text: #F2F2F3;
+    --gap: 30px;
+}
+
+/* Elementos */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    scroll-behavior: smooth;
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+h1{
+    font-size: 96px;
+    font-weight: bold;
+}
+
+h2{
+    font-size: 64px;
+    font-weight: bold;
+}
+
+h3{
+    font-size: 32px;
+}
+
+p{
+    font-size: 24px;
+}
+
+
+
+/* Classes */
+
+.main-content{
+    max-width:1200px;
+    margin: 0 auto;
+    padding: 8rem var(--gap);
+}
+
+.page{
+    min-height:100vh;
+}
+
+
+/* Menu */
+
+
+
+.logo-olim{
+    width: 86px;
+    height: 83px;
+}
+
+
+.menu{
+    background: transparent;
+    position:absolute;
+    height: 173px;
+    width:100vw;
+    z-index:3000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items:center;
+}
+
+
+
+.menu .div-logo{
+    align-self: center;
+}
+
+
+
+.menu ul{
+    list-style:none;
+}
+.menu ul li a{
+    font-size: 24px;
+    font-weight: bold;
+    display:flex;
+    text-decoration:none;
+    color:var(--text)
+}
+
+
+
+/* Main */
+
+.main-bg{
+    background-image:linear-gradient(180deg, rgba(0,0,0,0.54) 13%, rgba(102,102,102,0.1) 100%) ,radial-gradient(circle, rgba(2,2,2,0.15) 52%, rgba(2,2,2,0.66) 86%), linear-gradient(180deg, rgba(2,2,2,0) 98%, rgba(11,11,13,1) 100%), url('../IMG/background1.png'); 
+    background-position: center center;
+    background-size:cover;
+    background-repeat: no-repeat;
+}
+
+.main-bg-content{
+    text-align:center;
+    position:absolute;
+	top: 50%;
+	left: 50%;
+	transform:translate(-50%,-50%);
+}
+
+/* História */
+
+.historia-bg{
+    background-color:var(--background);
+
+}
