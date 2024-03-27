@@ -61,7 +61,7 @@ p{
 
 .logo-olim{
     width: 86px;
-    height: 83px;
+    height: 85.94px;
 }
 
 
@@ -100,13 +100,13 @@ p{
 /* Main */
 
 .main-bg{
-    background-image:linear-gradient(180deg, rgba(0,0,0,0.54) 13%, rgba(102,102,102,0.1) 100%) ,radial-gradient(circle, rgba(2,2,2,0.15) 52%, rgba(2,2,2,0.66) 86%), linear-gradient(180deg, rgba(2,2,2,0) 98%, rgba(11,11,13,1) 100%), url('../IMG/background1.png'); 
+    background-image:linear-gradient(180deg, rgba(0,0,0,0.54) 13%, rgba(102,102,102,0.1) 100%) ,radial-gradient(circle, rgba(2,2,2,0.15) 52%, rgba(2,2,2,0.66) 86%), linear-gradient(180deg, rgba(2,2,2,0) 98%, rgba(11,11,13,1) 100%), url('../IMG/paris-init.png'); 
     background-position: center center;
     background-size:cover;
     background-repeat: no-repeat;
 }
 
-.main-bg-content{
+.main-content{
     text-align:center;
     position:absolute;
 	top: 50%;
@@ -114,9 +114,26 @@ p{
 	transform:translate(-50%,-50%);
 }
 
+/* Regras */
+
+.regras-bg {
+    background-color:var(--background);
+}
+
+
+
 /* História */
 
 .historia-bg{
     background-color:var(--background);
 
+}
+
+/* Fim */
+
+.fim-bg{
+    background:linear-gradient(180deg, rgba(11,11,13,0) 70%, rgba(11,11,13,1) 100%), linear-gradient(180deg, rgba(11,11,13,0.54) 16%, rgba(11,11,13,0.11) 100%), linear-gradient(180deg, rgba(11,11,13,1) 0%, rgba(11,11,13,0) 16%),radial-gradient(circle, rgba(11,11,13,0.15) 0%, rgba(11,11,13,0.9) 99%), url('../IMG/paris-final.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
