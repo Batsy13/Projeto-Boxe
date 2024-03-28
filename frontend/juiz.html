@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aba do Juiz</title>
+    <link rel="stylesheet" href="./CSS/juiz.css">
+    <link rel="shortcut icon" type="imagex/png" href="./IMG/france-logo-init.png">
+</head>
+<body>
+    <section class="main-bg page">
+
+        <div class="conteiner">
+
+            <img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo">
+
+            <form action="">
+
+                <table class="peso"></table>
+                <table class="luta"></table>
+
+                <div class="line1">
+                    <div class="buscaPeso">
+
+                        <div class="searchPeso"> <input type="button" value="Categoria de Peso" name="categoria" id="categoria"></div>
+
+                        <ul id="listaCategorias">
+                            
+                        </ul>
+
+                    </div>
+                    <input type="number" name="rounds1" id="rounds1">
+                    <input type="text" name="faltas1" id="faltas1">
+                </div>
+
+                <label for="">Lutadores</label>
+                <label for="">Rounds</label>
+                <label for="">Faltas</label>
+
+                <div class="line2">
+                    <table class="atleta"></table>
+                    <input type="number" name="rounds2" id="rounds2">
+                    <input type="text" name="faltas2" id="faltas2">
+                </div>
+
+                <label for="data">Data</label>
+                <input id="data"class="data" type="date" min="2024-01-01" max="2024-12-31"></input>
+
+                <input type="button" class="submit" value="Enviar Dados">
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+</body>
+
+<script src="filtrar.js"></script>
+
+</html>

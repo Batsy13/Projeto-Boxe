@@ -1,0 +1,118 @@
+/* global */
+
+:root {
+    --text:#F2F2F3;
+    --background-page: #060606;
+    --background-cont: #0B0B0D;
+    --input-color: rgba(78,78,78,0.2);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--text);
+    font-size: 24px;
+}
+
+html{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main */
+
+.main-bg {
+    background-color: var(--background-page);
+}
+
+/* Conteiner */
+
+.conteiner {
+    background-color:var(--background-cont);
+    width: 80%;
+    height: 36em;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+input {
+    background-color: var(--input-color);
+    border: 1px solid  #4E4E4E;
+    height: 2.6em;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+}
+
+input:focus {
+    outline:none;
+}
+
+.logo {
+    width: 5.75em;
+    height: 3.2em;
+}
+
+.submit {
+    width: 12.5em;
+    height: 2.6em;
+    background-color: rgba(19,31,10,0.5);
+    border-style: none;
+    border-radius: 20px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+/* Busca Peso */
+
+.buscaPeso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.buscaPeso input {
+    width: 50vw;
+}
+
+.buscaPeso input:hover{
+    background-color: rgba(78,78,78,0.4)
+}
+
+    /* Filhos */
+
+#listaCategorias {
+    display: none;
+    position: absolute;
+    cursor: pointer;
+    width: 95%;
+    text-align: center;
+    list-style-type: none;
+    top: 2.6em;
+    background-color: var(--background-cont);
+}
+
+#listaCategorias li {
+    border: 1px solid #4E4E4E;
+    padding: 0.2em;
+}
+
+#listaCategorias li:hover{
+    background-color: rgb(44, 44, 44);
+}
