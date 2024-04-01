@@ -53,6 +53,7 @@ html{
     width: 9.5rem;
     height: 11rem;
     z-index: 98;
+    cursor: pointer;
 }
 
 .icon img {

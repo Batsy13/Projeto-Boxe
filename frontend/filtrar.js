@@ -21,25 +21,28 @@ const Categorias = [
         Categorias.forEach((item) =>{
             const li = document.createElement("li");
             li.innerHTML = `
-            <span class="categoria-name">${item.categoria}</span>
+            <span id="item" class="categoria-name">${item.categoria}</span>
             `;
             ul.appendChild(li);
     })
 
 
-const Estado = document.getElementById("categoria");
 const button = document.getElementById("categoria");
+const tela = document.getElementById("listaCategorias")
 
-button.addEventListener("click", null);
 
 function abrir(){
 
-    if(Estado.className == "open"){
-        Estado.className = ""
-        button.innerHTML = `${item.categoria}`
+    if(button.className == "open"){
+        button.className = ""
+        tela.style.display = "none"
+        button.value = pegar() ;
     }
     else{
-        Estado.className = "open"
+        button.className = "open"
+        tela.style.display = "block"
         button.innerHTML = `Categoria de Peso`
     }
+
 }
+
