@@ -1,4 +1,7 @@
-exports.paginaInicial = (req, res) => {
+exports.paginaInicial = (req,res) => {
     res.render('home');
-    return;
+}
+
+exports.logininit = (req,res) =>{
+    res.render('login');
 }
