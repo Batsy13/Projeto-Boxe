@@ -2,6 +2,9 @@ const express = require('express');
 const route = express.Router();
 const juiz = require("./models/juizModel");
 const mongoose = require("mongoose");
+const urlteste ='http://teste-olimpiadas-iesb.sa-east-1.elasticbeanstalk.com/';
+const axios = require("axios");
+axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
 // Controllers
 const homeController = require("./Controllers/HomeController");
@@ -41,6 +44,23 @@ route.post("/login", async function(req, res){
         res.status(400).json({ error: "Você é burro" });
       }
 });
+
+// async function loginapi(){
+//   var token = await login();
+
+//   const log = new URLSearchParams({
+//     username: req.body.username,
+//     password: req.body.password,
+//   })
+// }
+
+// try {
+//   let response = await axios.post(`${urlteste}login/token`, login, {Headers: {'content-type': 'x-www-form-urlencoded',}});
+//   console.log(response.data);
+//   return response.data.token; // Retorna o token se o login for bem-sucedido
+// } catch (error) {
+//   return null; // Retorna nulo se houver um erro no login
+// }
 
 // Rotas Atleta
 
