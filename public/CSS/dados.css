@@ -65,7 +65,7 @@ input,select {
     height: 2.6em;
     width: 20vw;
     border-radius: 20px;
-    cursor: text;
+    cursor: pointer;
     text-align: center;
 
 }
@@ -77,7 +77,6 @@ input:focus, select {
 .logo {
     width: 5.75em;
     height: 3.2em;
-    cursor: pointer;
 }
 
 .submit {
@@ -91,7 +90,6 @@ input:focus, select {
     align-items: center;
     margin: auto;
     margin-top: 2rem;
-    cursor: pointer;
 }
 
 /* Webkits Disable */

@@ -74,6 +74,6 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 2rem;
     cursor: pointer;
 }

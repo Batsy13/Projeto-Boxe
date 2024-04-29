@@ -1,0 +1,112 @@
+<!DOCTYPE ejs>
+<html lang="pt_BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Partida</title>
+    <link rel="stylesheet" href="CSS/partida.css">
+    <link rel="shortcut icon" type="imagex/png" href="./IMG/france-logo-init.png">
+</head>
+
+<body>
+    <section class="main-bg page">
+
+        <div class="conteiner">
+
+            <div class="header">
+                <a href="http://localhost:3000/Atleta?">Adicionar Atleta</a>
+                <a href="http://localhost:3000/menu"><img  src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
+                <a href="#">Buscar Dados</a>
+            </div>
+            <form action="/Partida" method="POST">
+
+                <div class="buscaPeso">
+
+                    <div class="searchPeso">
+
+                        <select name="Categoria de Peso" id="categoria">
+
+                            <option value=""> Categoria De Peso </option>
+                            <optgroup label="Masculino">
+                                <option value="1">Peso Mosca</option>
+                                <option value="2">Peso Pena</option>
+                                <option value="3">Peso Leve</option>
+                                <option value="4">Meio-Médio</option>
+                                <option value="5">Peso Médio</option>
+                                <option value="6">Meio-Pesado</option>
+                                <option value="7">Pesado</option>
+                                <option value="8">Super Pesado</option>
+                            </optgroup>
+                            <optgroup label="Feminino">
+                                <option value="9">Peso Mosca</option>
+                                <option value="10">Peso Pena</option>
+                                <option value="11">Peso leve</option>
+                                <option value="12">Peso Meio-Médio</option>
+                                <option value="13">Peso Médio</option>
+                            </optgroup>
+
+                        </select>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="buscaPartida">
+
+                    <div class="searchPartida">
+
+                        <select value="Partida" id="Partidas">
+
+                            <option value="1"> Partida 1 </option>
+                            <option value="2"> Partida 2 </option>
+                            <option value="3"> Partida 3 </option>
+                            <option value="4"> Partida 4 </option>
+                            <option value="5"> Partida 5 </option>
+                            <option value="6"> Partida 6 </option>
+                            <option value="7"> Partida 7 </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="line1">
+                    <input type="text" name="atleta1" id="atleta1" placeholder="Atleta 1">
+                    <input type="number" name="ponto1" id="ponto1">
+                    <input type="text" name="falta1" id="falta1" placeholder="Faltas">
+                </div>
+
+                <div class="line2">
+                    <p>Rounds</p>
+                </div>
+
+                <div class="line1">
+                    <input type="text" name="atleta2" id="atleta2" placeholder="Atleta 2">
+                    <input type="number" name="ponto2" id="ponto2">
+                    <input type="text" name="falta2" id="falta2" placeholder="Faltas">
+                </div>
+
+                <div class="line3">
+                    <p>Data</p>
+                    <input type="date" name="date1" id="date1" min="2024-01-01" max="2024-12-31">
+                </div>
+
+                <div class="line4">
+                    <p>Local</p>
+                    <input type="text" name="local" id="local" placeholder="Cidade">
+                </div>
+
+                <input type="submit" class="submit" value="Adicionar Partida">
+
+            </form>
+        </div>
+
+    </section>
+
+</body>
+
+</html>

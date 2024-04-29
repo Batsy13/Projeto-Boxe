@@ -13,11 +13,18 @@
     <section class="main-bg page">
 
         <div class="conteiner">
-            <button class="escolhas" action="/Atleta" method="GET"> Adicionar Atleta </button>
-            <button class="escolhas"> Adicionar Partidas </button>
-            <button class="escolhas"> Buscar Dados </button>
-            <a action="/Atleta" method="GET" href="/Atleta">DALE</a>
-            <!-- <button class="escolhas"> Partida Ao Vivo </button>  -->
+            <form action="/Atleta" method="GET"> 
+                <button class="escolhas" type="submit">Adicionar Atleta</button>
+            </form>
+
+            <form  action="/Partida" method="GET"> 
+                <button class="escolhas" type="submit">Adicionar Partidas</button>
+            </form>
+
+            <form  action="/Dados" method="GET"> 
+                <button class="escolhas" type="submit"> Buscar Dados </button>
+            </form>
+            <!-- <form class="escolhas"> Partida Ao Vivo </form>  -->
         </div>
 
     </section>
@@ -25,6 +32,5 @@
 
 </body>
 
-<script src="JS/filtrar.js"></script>
 
 </html>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Atleta</title>
-    <link rel="stylesheet" href="CSS/atleta.css">
+    <title>Buscar Dados</title>
+    <link rel="stylesheet" href="CSS/dados.css">
     <link rel="shortcut icon" type="imagex/png" href="./IMG/france-logo-init.png">
 </head>
 
@@ -15,14 +15,24 @@
         <div class="conteiner">
 
             <div class="header">
-                <a href="http://localhost:3000/Partida?">Adicionar Partida</a>
-                <a href="http://localhost:3000/menu"><img  src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
+                <a href="#">Adicionar Partida</a>
+                <img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo">
                 <a href="#">Buscar Dados</a>
             </div>
-            <form action="/Atleta" method="POST">
+            <form action="">
+
+                <div class="buscaPeso">
+
+                    <div class="searchPeso"> <select type="button" value="Categoria de Peso" id="categoria"></select> </div>
+
+                    <select id="listaCategorias">
+
+                    </select>
+
+                </div>
 
                 <div class="line1">
-                    <input type="text" name="atleta" id="atleta" placeholder="Nome">
+                    <input type="text" name="atelta" id="atleta" placeholder="Nome">
                     <input type="search" name="pais" id="pais" placeholder="País">
                 </div>
                 
@@ -31,7 +41,7 @@
                     <input type="number" name="idade" id="idade" placeholder="Idade">
                 </div>
 
-                <button class="submit" type="submit"> Cadastrar Atleta </button>
+                <input type="button" class="submit" value="Cadastrar Atleta">
 
             </form>
         </div>
