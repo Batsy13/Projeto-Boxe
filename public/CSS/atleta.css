@@ -133,31 +133,33 @@ input[type="search"]::-webkit-search-cancel-button{
 
     /* Filhos Categoria */
 
-#listaCategorias {  
+#listaPaises{  
     display: none;
-    position: absolute;
-    cursor: pointer;
-    width: 47vw;
-    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 20vw;
     list-style-type: none;
-    top: 4.1rem;
     background-color: var(--background-cont);
-    overflow:auto;
+    position:absolute;
 }
 
-#listaCategorias option {
+#listaPaises li{
     border: 1px solid #4E4E4E;
-    padding: 0.2rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding:12px;
+    cursor:pointer;
 }
 
-#categoria *:hover{
+li:hover{
     background-color: rgb(44, 44, 44);
 }
 
-#categoria * {
-    width: 45vw;
-    background-color:var(--background-page);
-}
+
 
 
 /* Divs comportamento */

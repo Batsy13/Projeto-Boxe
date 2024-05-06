@@ -59,14 +59,64 @@ a {
     flex-direction: column;
 }
 
-input,select {
+.inputs {
     background-color: var(--input-color);
     border: 1px solid  #4E4E4E;
     height: 2.6em;
     width: 20vw;
     border-radius: 20px;
-    cursor: pointer;
+    cursor: text;
     text-align: center;
+    margin: 1em;
+}
+
+.form{
+    display:grid;
+    place-items: center;
+}
+
+.submit {
+    width: 12.5em;
+    height: 2.6em;
+    background-color: rgba(19,31,10,0.5);
+    border-style: none;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+img{
+    cursor:pointer;
+}
+
+#lista > li {
+    border: 1px solid #4E4E4E;
+    display:grid;
+    place-items: center;
+    grid-template-columns: 1fr 1fr ;
+    width: 50vw;
+    padding:12px;
+    color: var(--text);
+}
+
+#lista > li > div >svg {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+#search{
+    background-color: var(--input-color);
+    border: 1px solid  #4E4E4E;
+    height: 2.6em;
+    width: 50vw;
+    border-radius: 20px;
+    cursor: text;
+    text-align: center;
+    margin: 1em;
 
 }
 
@@ -106,55 +156,6 @@ input[type="number"]::-webkit-inner-spin-button{
 
 input[type="search"]::-webkit-search-cancel-button{
     -webkit-appearance: none;
-}
-
-/* Busca Peso */
-
-.buscaPeso {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-    
-}
-
-.buscaPeso select {
-    width: 50vw;
-}
-
-.buscaPeso select:hover{
-    background-color: rgba(78,78,78,0.4)
-}
-
-    /* Filhos Categoria */
-
-#listaCategorias {  
-    display: none;
-    position: absolute;
-    cursor: pointer;
-    width: 47vw;
-    text-align: center;
-    list-style-type: none;
-    top: 4.1rem;
-    background-color: var(--background-cont);
-    overflow:auto;
-}
-
-#listaCategorias option {
-    border: 1px solid #4E4E4E;
-    padding: 0.2rem;
-}
-
-#categoria *:hover{
-    background-color: rgb(44, 44, 44);
-}
-
-#categoria * {
-    width: 45vw;
-    background-color:var(--background-page);
 }
 
 

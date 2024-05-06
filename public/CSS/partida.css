@@ -181,6 +181,29 @@ input[type="search"]::-webkit-search-cancel-button{
     background-color:var(--background-page);
 }
 
+#listaAtleta1, #listaAtleta2{  
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    width: 20vw;
+    list-style-type: none;
+    background-color: var(--background-cont);
+    position:absolute;
+}
+
+#listaAtleta1 li, #listaAtleta2 li{
+    border: 1px solid #4E4E4E;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding:12px;
+    cursor:pointer;
+    z-index:2000;
+}
+
 
 /* Divs comportamento */
 
@@ -192,12 +215,8 @@ input[type="search"]::-webkit-search-cancel-button{
     width: 50vw;
 }
 
-.line2{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 50vw;
-    position: relative;
+.rounds{
+    text-align: center;
 }
 
 .line3{

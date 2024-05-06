@@ -13,8 +13,8 @@ const loginController = require("./Controllers/LoginController");
 
 // Var Global Token
 
-// let authToken = '';
-// axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+let authToken = '';
+axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 
 // Rotas da Home
 route.get('/', homeController.paginaInicial);
@@ -39,14 +39,13 @@ route.post("/login", async function (req, res) {
       // verifica senha
       const result = req.body.password === user.password;
       if (result) {
-        res.redirect("menu")
-        // const token = await LoginApi(req.body.username, req.body.password);
-        // if (token) {
-        //   // authToken = token; // Atribui o token à variável global
-        //   res.redirect("menu");
-        // } else {
-        //   return res.send("<script> window.alert('Falha ao obter o token'); window.location.href = '/login'</script>");
-        // }
+        const token = await LoginApi(req.body.username, req.body.password);
+        if (token) {
+          // authToken = token; // Atribui o token à variável global
+          res.redirect("menu");
+        } else {
+          return res.send("<script> window.alert('Falha ao obter o token'); window.location.href = '/login'</script>");
+        }
       } else {
         return res.send("<script> window.alert('Senha Incorreta'); window.location.href = '/login'</script>");
       }
@@ -60,28 +59,32 @@ route.post("/login", async function (req, res) {
 });
 
 
-// async function LoginApi(username, password){
-//   const log = new URLSearchParams({
-//     username: username,
-//     password: password,
-//   })
-//   try {
-//     let response = await axios.post(`${urlteste}login/token`, log, {Headers: {'content-type': 'x-www-form-urlencoded',}});
-//     return response.data.token;
-//   } catch (error) {
-//     return null;
-//   }
-// }
+async function LoginApi(username, password){
+  const log = new URLSearchParams({
+    username: username,
+    password: password,
+  })
+  try {
+    let response = await axios.post(`${urlteste}login/token`, log, {Headers: {'content-type': 'x-www-form-urlencoded',}});
+    return response.data.token;
+  } catch (error) {
+    return null;
+  }
+}
 
 // function Logado(req, res, next) {
-//   if (req.isAuthenticated()) return next();
-//   res.redirect("/login");
+//   if (req.isAuthenticated()) {
+//     return next();
+//   }
+//   else{
+//     res.redirect("/login");
+//   }
 // }
 
 
 // Rotas Menu
 
-route.get("/menu", (req, res) => {
+route.get("/menu",(req, res) => {
   res.render("menu");
 })
 
@@ -124,6 +127,23 @@ route.post("/Partida", async (req,res) => {
   })
   return res.status(200).json(part);
 })
+
+// Rotas Dados
+
+route.get('/atletas', async (req, res) => {
+  const atletas = await atleta.find().sort('nome');
+  res.json(atletas);
+});
+
+route.put('/atletas/:id', async (req, res) => {
+  const atletas = await atleta.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  res.json(atletas);
+});
+
+route.delete('/atletas/:id', async (req, res) => {
+  await atleta.findByIdAndDelete(req.params.id);
+  res.json({ message: 'Atleta excluído' });
+});
 
 
 module.exports = route;
