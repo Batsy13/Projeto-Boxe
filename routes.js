@@ -31,33 +31,7 @@ route.get('/login', homeController.logininit);
 //     return res.status(200).json(user);
 //   });
 
-route.post("/login", async function (req, res) {
-  try {
-    // usuário existe?
-    const user = await juiz.findOne({ username: req.body.username });
-    if (user) {
-      // verifica senha
-      const result = req.body.password === user.password;
-      if (result) {
-        const token = await LoginApi(req.body.username, req.body.password);
-        if (token) {
-          // authToken = token; // Atribui o token à variável global
-          res.redirect("menu");
-        } else {
-          return res.send("<script> window.alert('Falha ao obter o token'); window.location.href = '/login'</script>");
-        }
-      } else {
-        return res.send("<script> window.alert('Senha Incorreta'); window.location.href = '/login'</script>");
-      }
-    } else {
-      return res.send("<script> window.alert('Usuário não encontrado'); window.location.href = '/login'</script>");
-    }
-  } catch (error) {
-    console.error("Erro ao fazer login:", error);
-    return res.status(400).json({ error: "Erro ao fazer login" });
-  }
-});
-
+route.post("/login", loginController.loginUser);
 
 async function LoginApi(username, password){
   const log = new URLSearchParams({
@@ -71,16 +45,6 @@ async function LoginApi(username, password){
     return null;
   }
 }
-
-// function Logado(req, res, next) {
-//   if (req.isAuthenticated()) {
-//     return next();
-//   }
-//   else{
-//     res.redirect("/login");
-//   }
-// }
-
 
 // Rotas Menu
 
