@@ -1,15 +1,42 @@
 const express = require('express');
 const route = express.Router();
-const juiz = require("./models/juizModel");
-const atleta = require("./models/AtletaModel");
-const partida = require("./models/PartidaModel");
+const juiz = require("../models/juizModel");
+const atleta = require("../models/AtletaModel");
+const partida = require("../models/PartidaModel");
 const mongoose = require("mongoose");
 const urlteste = 'http://teste-olimpiadas-iesb.sa-east-1.elasticbeanstalk.com/';
 const axios = require("axios");
+const asyncHandler = require('express-async-handler');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
+// Middleware
+
+const validateToken = asyncHandler(async (req, res, next) => {
+  try {
+    let token;
+    const authHeader = req.headers.Authorization || req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer")) {
+      token = authHeader.split(" ")[1];
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+          res.status(401);
+          throw new Error("User is not authorized");
+        }
+        req.user = decoded.user;
+        next();
+      });
+    } else {
+      res.status(401);
+      throw new Error("User is not authorized or token is missing");
+    }
+  } catch (error) {
+    next(error);
+  }
+});
 // Controllers
-const homeController = require("./Controllers/HomeController");
-const loginController = require("./Controllers/LoginController");
+
+const homeController = require("../Controllers/HomeController");
 
 // Var Global Token
 
@@ -22,16 +49,29 @@ route.get('/login', homeController.logininit);
 
 // // Rotas do Login
 
-// route.post("/login", async (req, res) => {
-//     const user = await juiz.create({
-//       username: req.body.username,
-//       password: req.body.password
-//     });
-
-//     return res.status(200).json(user);
-//   });
-
-route.post("/login", loginController.loginUser);
+route.post('/login', async(req,res) =>{
+  const{username, password} = req.body;
+  if(!username || !password) {
+      res.status(400)
+      res.send("<script>  window.alert('Erro: Todos os campos são obrigatórios'); window.location.href = '/login'</script>")
+  }
+  const user = await juiz.findOne({ username });
+  if(user && (password === user.password)) {
+      const acessToken = jwt.sign({
+          user:{
+              username: user.username,
+          },
+      }, 
+      process.env.ACCESS_TOKEN_SECRET,
+      {expiresIn: "20m"}
+  );
+      console.log(acessToken)
+      res.render("menu");
+  }else{
+      res.status(401)
+      res.send("<script>  window.alert('Erro: Usuário ou senha incorreta'); window.location.href = '/login'</script>")
+  }
+})
 
 async function LoginApi(username, password){
   const log = new URLSearchParams({
@@ -46,9 +86,9 @@ async function LoginApi(username, password){
   }
 }
 
-// Rotas Menu
+// Rotas Menu - Secretas
 
-route.get("/menu",(req, res) => {
+route.get("/menu",validateToken, (req, res) => {
   res.render("menu");
 })
 
@@ -60,7 +100,7 @@ route.get("/Partida", (req,res) => {
   res.render("Partida");
 });
 
-route.get("/Dados", (req,res) => {
+route.get("/Dados",(req,res) => {
   res.render("Dados");
 });
 

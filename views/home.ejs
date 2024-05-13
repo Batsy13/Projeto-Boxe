@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olimpíadas - Boxe</title>
     <link rel="stylesheet" href="CSS/styles.css">
-    <link rel="shortcut icon" type="imagex/png" href="./IMG/france-logo-init.png">
+    <link rel="shortcut icon" type="imagex/png" href="./../public/IMG/france-logo-init.png">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="div-logo">
-                    <a href="#home"><img class="logo-olim" src="IMG/france-logo-init.png" alt="Logo das olimpiadas"></a>
+                    <a href="#home"><img class="logo-olim" src="../public/IMG/france-logo-init.png" alt="Logo das olimpiadas"></a>
                 </div>
 
                 <div class="menu-R">
@@ -64,16 +64,191 @@
     </section>
 
     <section id="Regras" class="regras-bg regras-content page">
-        <div><h3>Regras</h3></div>
+
+      <p class="conteudo">
+        No boxe, dois atletas (boxeadores) lutam num ringue, utilizando apenas
+        as mãos para atacar e defender. O objetivo principal é tentar nocautear
+        o adversário com um soco preciso e, ao mesmo tempo, evitar ser atingido.
+      </p>
+
+      <div id="meio">
+        <li class="golpe">
+          <p class="centralizado">Golpe</p>
+
+          <button id="botaogolpe" class="stylepop"></button>
+          <!--BOTÃO DOS GOLPES-->
+          <dialog id="popgolpe" class="styledentropop">
+            <nav id="fechar">
+              <button>
+                x
+              </button>
+            </nav>
+            <ul>
+              <h2>
+                Jab ou Reto com a mão adiantada / Direto ou Reto com a mão
+                atrasada
+              </h2>
+              <p>
+                O jab (reto da mão daiantada) seve para medir a distância e/ou
+                para "cegar" ou abrir a a guarda do adversário para o Direto
+                (reto da mão atrasada), por este motivo não deve existir pausa
+                entre os golpes, assim que quando o primeiro atinge o alvo ou
+                cumpre sua função, o segundo golpe já estar sendo lançado com
+                força. <br />
+                Recorando que ambos os golpes devem ser lançados como um
+                "chicote", ou seja se desenrolando por toda a cadeia cinemática,
+                partindo do solo e ao chegar em seu alvo deve retornar
+                rapidamente a posição inicial da parada de combate (guarda).
+              </p>
+              <div id="botaolateral"> <button id="boataodireita"><img src="../public/IMG/Vectorrigth.png" alt=""></button></div>
+              <dialog id="popdireita" class="styledentropop"> 
+
+                <h2>Ganchos</h2>
+                <p>O gancho no boxe pode ser lançado com qualquer mão e é um dos 4 socos básicos no boxe (jab, cruzados, ganchos e uppercuts). Normalmente mirado para o lado da cabeça ou do maxilar tem mais potência que os socos retos, mas o arco do soco torna um pouco mais fácil de bloquear. <br><br>O posicionamento do polegar ao arremessar um gancho é de suma importância. As duas opções são que o polegar esteja voltado para cima ou a palma da mão para baixo. E a resposta correta é que ambas são formas adequadas do gancho.</p>
+                <div id="botaolateral2"> <button id="boataoesquerdo"><img src="../public/IMG/Vectorleft.png" alt=""></button></div>
+                <h2>Uppercuts ou gancho ascendente vertical</h2>
+                <p>O uppercut no boxe é um soco dado com um movimento para cima. Na maioria das vezes é usado no curto intervalo de luta, mas também é eficaz a meia distância. É quase nunca um soco que você usaria a longa distância (um uppercut normalmente termina com o antebraço perpendicular ao solo, o que limita a distância que você pode alvejar).</p>
+                <h2>Overhand</h2>
+                <p>O overhand é um soco dado com a mão de trás e viaja sobre a cabeça de forma laçada. É um soco largo e perigoso que requer um bom timing para pousar, porque é mais fácil ver este soco vindo de longe.</p>
+
+              </dialog>
+              <h2>Cruzado</h2>
+
+              <p>
+                O Cruzado no boxe é um dos golpes básicos, é relativamente fácil
+                de executar, pode ser preparada de muitas maneiras e também pode
+                ser usada sozinha
+                <br /><br />
+                A força da greve é gerada pela reviravolta no corpo. Em primeiro
+                lugar, dirija o pe de trás para o chão, gere a força através de
+                seus quadris e incline-se ligeiramente para frente distribuindo
+                o peso de trás para frente. Não conduza a mão primeira, a cruz
+                começa com a rotação do corppo e a mão segue e distribui a força
+                gerada através do corpo. <br />
+                É assim que se dá um soco mais forte.
+              </p>
+            </ul>
+          </dialog>
+          <img src="../public/IMG/golpes.png" alt="Golpes" />
+        </li>
+
+        <li class="ringue">
+          <p class="centralizado">Ringue/Equipamento</p>
+
+          <button id="botaoringue" class="stylepop"></button>
+          
+          <dialog id="popringue" class="styledentropop">
+            <nav id="fechar">
+              <button>x</button>
+            </nav>
+              <div class="body-container">
+                  <div class="paragraph">
+                      <p class="text-container">
+                          <span class="title">Ringue</span><br><br>
+          
+                      <p class="text">O ringue da luta de boxe deve medir 6,10 metros, medido dentro
+                          das cordas. O seu piso deve ser de material macio.</p><br><br>
+          
+                      <span class="title">Equipamanto</span><br><br>
+          
+                      <p class="text">O equipamento principal da luta é o par de luvas.
+                          Estas são feitas de couro almofadado e são projetadas para proteger as mãos de
+                          quem ataca e para reduzir os danos no lutador que é atacado.
+                          Sob as luvas, são usadas bandagens envolvendo as mãos. Como
+                          vestimenta, utilizam camiseta sem manga, shorts e sapato especial.
+                          Além disso, os lutadores utilizam capacete, protetor bucal e,
+                          os homens, um protetor genital, chamado de coquilha.<br><br></p>
+                      </p>
+                  </div>
+              </div>
+          
+              <div class="card-position1">
+                  <p class="card">Capacete</p>
+                  <p class="card">Luvas</p>
+              </div><br>
+              <div class="card-position2">
+                  <p class="card">Bandagem</p>
+                  <p class="card">Protetor Bocal</p>
+                  <p class="card">Coquilha</p>
+              </div>
+          </dialog>
+          
+          <!--BOTÃO DO RINGUE-->
+
+          <img src="../public/IMG/ring.png" alt="Ringe/Equipamentos" />
+        </li>
+
+        <li class="falta">
+          <p class="centralizado">Faltas</p>
+
+          <button id="botaofalta" class="stylepop"></button>
+          <!--BOTÃO DAS FALTAS-->
+
+          <img src="../public/IMG/falta.png" alt="Faltas" />
+
+          <dialog id="popfalta" class="styledentropop">
+            <nav id="fechar">
+              <button>x</button>
+            </nav>
+
+            <h2>Faltas</h2>
+            <nav>
+              <p>Algumas ações são impedidas por normas gerais. São elas:</p>
+              <li>Golpear o adversário abaixo da cintura;</li>
+              <li>Atacar o adversário quando ele estiver caído;</li>
+              <li>Morder a orelha;</li>
+              <li>Atacar com a parte interna da mão, antebraço ou cotovelo;</li>
+              <li>Agarrar-se nas cordas de limite;</li>
+              <li>Agarrar o adversário em excesso.</li>
+            </nav>
+          </dialog>
+        </li>
+      </div>
+
     </section>
 
     <section id="Historia" class="historia-bg historia-content page">
-        <div><h3> História </h3></div>
+        
+        <h3>Historia</h3>
+        <ul>
+          <li>
+            <img src="../public/IMG/image 8.png" alt="Lutador" />
+          </li>
+  
+          <li class="conteudo">
+            <p>
+              O boxe, uma arte milenar de combate, tem suas raízes profundamente
+              entrelaçadas com a história da humanidade. Remontando a civilizações
+              antigas, os registros de combates corpo a corpo encontram-se em
+              diversas culturas ao longo dos séculos. No entanto, o boxe moderno,
+              como o conhecemos hoje, começou a ganhar forma no século XVIII na
+              Inglaterra, evoluindo de uma prática brutal e desorganizada para um
+              esporte regulamentado, com regras estabelecidas para garantir a
+              segurança dos competidores.
+            </p>
+          </li>
+  
+          <li class="conteudo">
+            <p>
+              O boxe alcançou destaque internacional com sua inclusão nos Jogos
+              Olímpicos da Antiguidade, sendo uma das disciplinas esportivas mais
+              prestigiadas. Após um período de ausência, o boxe foi reintroduzido
+              nos Jogos Olímpicos modernos em St. Louis, em 1904, marcando seu
+              retorno triunfante ao cenário esportivo mundial. Desde então, o boxe
+              olímpico tem proporcionado momentos memoráveis, destacando talentos
+              que mais tarde brilhariam nos ringues profissionais.
+            </p>
+          </li>
+        </ul>
+
     </section>
 
     <section id="fim" class="fim-bg page">
         <footer></footer>
     </section>
+
+
+    <script src="../public/JS/falta.js"></script>
 
 </body>
 </html>

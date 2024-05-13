@@ -1,15 +1,18 @@
 
 const express = require('express');
 const path = require('path');
-const routes = require('./routes');
-BodyParser = require("body-parser");
+const routes = require('./routes/routes');
+const BodyParser = require("body-parser");
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const Juiz = require("./models/juizModel");
 const paises = require('./models/PaisModel');
 const atletas = require('./models/AtletaModel');
 const dotenv = require('dotenv').config();
-
+const {
+    currentUser,
+    loginUser,
+  } = require("../Controllers/LoginController");
 
 const app = express();
 
@@ -20,6 +23,7 @@ const port = 3000;
 
 // View engine setup
 
+app.use(BodyParser.urlencoded({extended:true}));
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'ejs');
 
