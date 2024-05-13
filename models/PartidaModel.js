@@ -2,6 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var partida = new Schema({
+    id_categoria: {
+        type: String
+    },
+    id_partida: {
+        type: String
+    },
     id_atleta: {
         type:String
     },

@@ -4,7 +4,8 @@ const juiz = require("../models/juizModel");
 const atleta = require("../models/AtletaModel");
 const partida = require("../models/PartidaModel");
 const mongoose = require("mongoose");
-const urlteste = 'http://teste-olimpiadas-iesb.sa-east-1.elasticbeanstalk.com/';
+const url = 'https://olimpiadasiesb-7780607c931d.herokuapp.com/';
+const idboxe = "6601ece87d406070201176ae";
 const axios = require("axios");
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
@@ -66,6 +67,8 @@ route.post('/login', async(req,res) =>{
       {expiresIn: "20m"}
   );
       console.log(acessToken)
+      authToken = await LoginApi(user.username, user.password);
+      console.log(authToken);
       res.render("menu");
   }else{
       res.status(401)
@@ -79,10 +82,10 @@ async function LoginApi(username, password){
     password: password,
   })
   try {
-    let response = await axios.post(`${urlteste}login/token`, log, {Headers: {'content-type': 'x-www-form-urlencoded',}});
+    let response = await axios.post(`${url}login/token`, log, {Headers: {'content-type': 'x-www-form-urlencoded',}});
     return response.data.token;
   } catch (error) {
-    return null;
+    return error;
   }
 }
 
@@ -104,7 +107,11 @@ route.get("/Dados",(req,res) => {
   res.render("Dados");
 });
 
-// Rotas Atleta
+route.get("/Agendar", (req,res) => {
+  res.render("Agendar");
+})
+
+// Rotas forms
 
 route.post("/Atleta", async (req,res) => {
 
@@ -113,13 +120,38 @@ route.post("/Atleta", async (req,res) => {
     weight_category: req.body.peso,
     athlete: req.body.atleta,
     age: req.body.idade,
+    gender: req.body.genero,
   })
   res.send("<script>  window.alert('Atleta Adicionado Com sucesso'); window.location.href = '/Atleta'</script>");
   
 });
 
-route.post("/Partida", async (req,res) => {
-  const part = await partida.create({
+route.patch("/Partida", async (req,res) => {
+  const { id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2 } = req.body;
+  try {
+    // Encontra o documento pelo id_partida e atualiza os campos necessários
+    const part = await partida.findByIdAndUpdate(
+      id_partida, // condição para encontrar o documento
+      { id_categoria: categoria, id_atleta: atleta1, id_atleta2: atleta2, ponto1, ponto2, falta1, falta2 }, // os dados para atualizar
+      { new: true } // opção para retornar o documento atualizado
+    );
+    if (!part) {
+      return res.status(404).json({ message: 'Partida não encontrada' });
+    }
+    const partidaData = {id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2};
+    await axios.patch(`${url}esportes/${idboxe}/partidas`, partidaData );
+    return res.status(200).json(part);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: 'Erro ao atualizar a partida' });
+  }
+});
+
+
+route.post("/Agendar", async(req,res) => {
+  const agendar = await partida.create({
+    id_categoria: req.body.categoria,
+    id_partida: req.body.partida,
     id_atleta: req.body.atleta1,
     id_atleta2: req.body.atleta2,
     ponto1: req.body.ponto1,
@@ -129,7 +161,19 @@ route.post("/Partida", async (req,res) => {
     date: req.body.date1,
     local: req.body.local,
   })
-  return res.status(200).json(part);
+
+  try{
+    const agendarapi = {
+      data:req.body.date1,
+      local: req.body.local,
+      fase: req.body.partida,
+    }
+    axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
+    await axios.post(`${url}esportes/${idboxe}/partidas`, agendarapi);
+  }
+  catch (error){
+    console.log(error);
+  }
 })
 
 // Rotas Dados
@@ -149,5 +193,18 @@ route.delete('/atletas/:id', async (req, res) => {
   res.json({ message: 'Atleta excluído' });
 });
 
+// Api
+
+route.get('/api/paises',async (req, res) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+  await axios.get(`${url}paises`)
+  .then((response) => {
+    res.json(response.data); // Envia os dados da resposta como JSON
+  })
+  .catch((e) => {
+    console.log(e);
+    res.status(500).send('Erro ao buscar países'); // Envia uma mensagem de erro se a solicitação falhar
+  });
+});
 
 module.exports = route;

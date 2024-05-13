@@ -120,6 +120,44 @@ p{
     background-color:var(--background);
 }
 
+/* #Regras {
+    position: relative;
+    height: auto;
+    text-align: center;
+  }
+  #meio {
+    display: flex;
+  }
+  #Regras h3 {
+    margin: 50px 0px;
+  }
+  #Regras .conteudo {
+    margin: 50px 80px;
+  }
+  #Regras #meio li {
+    position: relative;
+  }
+  #Regras #meio li img {
+    display: block;
+    margin: auto;
+    border-radius: 15px;
+  }
+  #Regras #meio .centralizado {
+    position: absolute;
+    width: 100%;
+    top: 27%;
+  }
+  @media (max-width: 800px) {
+    #meio {
+      display: block;
+    }
+    #meio li {
+      margin-top: 10px;
+    }
+    .falta {
+      margin-bottom: 100px;
+    }
+  } */
 
 
 /* História */
@@ -128,6 +166,225 @@ p{
     background-color:var(--background);
 
 }
+/* #historia {
+    height: auto;
+    position: relative;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid #0b0b0d;
+    background-color: #0b0b0d;
+  }
+  #historia h3 {
+    text-align: center;
+    margin: 50px 0px;
+  }
+  #historia ul {
+    margin: 50px 0px;
+  }
+  #historia ul li {
+    text-indent: 20px;
+    display: block;
+    text-align: center;
+  }
+  #historia ul .conteudo {
+    margin: 50px 80px;
+  }
+  #historia ul li img {
+    border-radius: 15px;
+  } */
+
+  /* .stylepop {
+    position: absolute;
+    height: 79.8%;
+    width: 100%;
+    transform: translate(-50%);
+    border: none;
+    appearance: none;
+    background-color: transparent;
+    border-radius: 5%;
+    cursor: pointer;
+  }
+  
+  .styledentropop {
+    width: 80%;
+    height: 80%;
+    border-radius: 14px;
+    box-shadow: 0 0 1em rgb(0 0 0/ 1);
+    border: none;
+    background-size: cover;
+    background-position: center;
+    color: aliceblue;
+  
+    h2 {
+      font-size: 24px;
+      margin-bottom: 4%;
+    }
+    p {
+      font-size: 20px;
+      margin-bottom: 3%;
+    }
+  }
+  #popfalta {
+    background-image: url(imagens/PopFaltas.png);
+  }
+  
+  #popfalta nav {
+    margin-top: 1%;
+    font-size: 20px;
+  }
+  #popfalta nav li {
+    margin-top: 1%;
+    list-style: disc;
+  }
+  #fechar {
+    text-align: right;
+  }
+  #fechar button {
+    background-color: transparent;
+    appearance: none;
+    color: aliceblue;
+  }
+  
+  #popgolpe {
+    background-image: url(imagens/popgolpe1227x778.png);
+    text-align: justify;
+  }
+  #popgolpe h2 {
+    text-align: justify;
+  }
+  
+  #popgolpe p {
+    width: 80%;
+    font-size: 16px;
+  }
+  
+  
+  #botaolateral{
+    position: absolute;
+    width: 97%;
+    text-align: right;
+  }
+  
+  #boataodireita{
+    background-color: transparent;
+    height: 37px;
+    cursor: pointer;
+    border: none;
+  }
+  #popdireita{
+    background-image: url(imagens/popgolpe1227x778.png);
+  }
+  
+  #popgolpe h2{
+    text-indent: 6%;
+  }
+  @media (max-width: 800px){
+    #popgolpe h2{
+      text-align: center;
+    }
+  }
+  #boataoesquerdo{
+    background-color: transparent;
+    position: absolute;
+    border: none;
+    cursor: pointer;
+    margin-top: 45px;
+  } */
+  
+  
+  /* POP RINGUE */
+  
+  /* /=============== POP-UP ====================/ */
+  
+  /* #popringue{
+    background-image: url("imagens/ringueescuro.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+  } */
+  
+  /* /================ BODY ====================/ */
+  
+  /* .paragraph{
+    width: 850px;
+    
+  }
+  
+  .title{
+    color: white;
+    font-size: 24px;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-variation-settings:
+            "wdth" 100;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+    position: relative;
+    top: 50px;
+  }
+  
+  .text{
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+            "wdth" 100;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+    position: relative;
+    top: 50px;
+  }
+  
+  .card{
+    color: white;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+            "wdth" 100;
+    width: 185px;
+    height: 46px;
+    border-radius: 8px;
+    background-color: #0E0D12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  } */
+  
+  /* /================== CARDS ==============/ */
+  
+  /* .card-position1{
+    padding-top: 22px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 50px;
+    margin-right: 16rem;
+    margin-left: 16rem;
+  }
+  
+  .card-position2{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 50px;
+    margin-right: 5rem;
+    margin-left: 5rem;
+  } */
+
 
 /* Fim */
 

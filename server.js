@@ -9,10 +9,6 @@ const Juiz = require("./models/juizModel");
 const paises = require('./models/PaisModel');
 const atletas = require('./models/AtletaModel');
 const dotenv = require('dotenv').config();
-const {
-    currentUser,
-    loginUser,
-  } = require("../Controllers/LoginController");
 
 const app = express();
 
@@ -43,12 +39,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.static(__dirname + '/public'));
 
 app.use(routes);
-
-app.get('/api/paises', async (req, res) => {
-    const query = paises.find();
-    const docs = await query;
-    res.json(docs);
-});
 
 app.get('/api/atletas', async (req, res) => {
     const query = atletas.find();

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olimpíadas - Boxe</title>
     <link rel="stylesheet" href="CSS/styles.css">
-    <link rel="shortcut icon" type="imagex/png" href="./../public/IMG/france-logo-init.png">
+    <link rel="shortcut icon" type="imagex/png" href="./IMG/france-logo-init.png">
 </head>
 
 <body>
@@ -26,13 +26,13 @@
                 </div>
 
                 <div class="div-logo">
-                    <a href="#home"><img class="logo-olim" src="../public/IMG/france-logo-init.png" alt="Logo das olimpiadas"></a>
+                    <a href="#home"><img class="logo-olim" src="./IMG/france-logo-init.png" alt="Logo das olimpiadas"></a>
                 </div>
 
                 <div class="menu-R">
 
                     <ul>
-                        <li><a href="Colocações">Colocações</a></li>
+                        <li><a href="#">Colocações</a></li>
                     </ul>
 
                 </div>
@@ -65,7 +65,9 @@
 
     <section id="Regras" class="regras-bg regras-content page">
 
-      <p class="conteudo">
+      <p>regras</p>
+
+      <!-- <p class="conteudo">
         No boxe, dois atletas (boxeadores) lutam num ringue, utilizando apenas
         as mãos para atacar e defender. O objetivo principal é tentar nocautear
         o adversário com um soco preciso e, ao mesmo tempo, evitar ser atingido.
@@ -76,7 +78,9 @@
           <p class="centralizado">Golpe</p>
 
           <button id="botaogolpe" class="stylepop"></button>
-          <!--BOTÃO DOS GOLPES-->
+
+          -- BOTÃO DOS GOLPES --
+
           <dialog id="popgolpe" class="styledentropop">
             <nav id="fechar">
               <button>
@@ -173,7 +177,7 @@
               </div>
           </dialog>
           
-          <!--BOTÃO DO RINGUE-->
+          -- BOTÃO DO RINGUE --
 
           <img src="../public/IMG/ring.png" alt="Ringe/Equipamentos" />
         </li>
@@ -182,7 +186,8 @@
           <p class="centralizado">Faltas</p>
 
           <button id="botaofalta" class="stylepop"></button>
-          <!--BOTÃO DAS FALTAS-->
+
+           --BOTÃO DAS FALTAS--
 
           <img src="../public/IMG/falta.png" alt="Faltas" />
 
@@ -203,13 +208,15 @@
             </nav>
           </dialog>
         </li>
-      </div>
+      </div> -->
 
     </section>
 
     <section id="Historia" class="historia-bg historia-content page">
         
-        <h3>Historia</h3>
+      <p>historia</p>
+
+        <!-- <h3>Historia</h3>
         <ul>
           <li>
             <img src="../public/IMG/image 8.png" alt="Lutador" />
@@ -240,15 +247,63 @@
             </p>
           </li>
         </ul>
-
-    </section>
+      -->
+    </section> 
 
     <section id="fim" class="fim-bg page">
         <footer></footer>
     </section>
 
 
-    <script src="../public/JS/falta.js"></script>
+    <script>
+
+const button = document.querySelector("#botaofalta");
+const modalfalta = document.querySelector("#popfalta");
+const buttonClose = document.querySelector("#popfalta #fechar");
+
+const abrirgolpe = document.querySelector("#botaogolpe");
+const modalgolpe = document.querySelector("#popgolpe");
+const fechargolpe = document.querySelector("#popgolpe #fechar");
+
+const direita = document.querySelector("#boataodireita");
+const modaldireita = document.querySelector("#popdireita");
+const fechardireita = document.querySelector("#popdireita #boataoesquerdo")
+
+const ringue = document.querySelector("#botaoringue");
+const modalringue = document.querySelector("#popringue");
+const fecharringue = document.querySelector("#popringue #fechar");
+
+
+button.onclick = function () {
+  modalfalta.showModal();
+};
+
+buttonClose.onclick = function () {
+  modalfalta.close();
+};
+
+abrirgolpe.onclick = function () {
+  modalgolpe.showModal();
+};
+fechargolpe.onclick = function () {
+  modalgolpe.close();
+};
+
+direita.onclick = function () {
+  modaldireita.showModal();
+};
+fechardireita.onclick = function () {
+  modaldireita.close();
+}
+
+ringue.onclick = function () {
+  modalringue.showModal();
+}
+fecharringue.onclick = function () {
+  modalringue.close();
+}
+
+    </script>
 
 </body>
 </html>

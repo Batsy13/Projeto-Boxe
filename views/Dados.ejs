@@ -15,7 +15,10 @@
         <div class="conteiner">
 
             <div class="header">
-                <a href="http://localhost:3000/Partida">Adicionar Partida</a>
+                <div>
+                    <a href="http://localhost:3000/Agendar" style="margin-right:20px;"> Agendar Partida </a>
+                    <a href="http://localhost:3000/Partida"> Efetivar Partida</a>
+                </div>
                 <img href="/menu"src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo">
                 <a href="http://localhost:3000/Atleta">Cadastrar Atleta</a>
             </div>
@@ -129,6 +132,27 @@ function excluirAtleta(id) {
         console.error('Erro:', error);
     });
 }
+
+// Adicione esta função ao seu código
+function filtrarAtletas() {
+    const input = document.getElementById('search');
+    const filter = input.value.toUpperCase();
+    const ul = document.getElementById('lista');
+    const li = ul.getElementsByTagName('li');
+
+    for (let i = 0; i < li.length; i++) {
+        let txtValue = li[i].textContent || li[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+        }
+    }
+}
+
+// Adicione este evento de entrada ao campo de pesquisa
+document.getElementById('search').addEventListener('input', filtrarAtletas);
+
 
 </script>
 

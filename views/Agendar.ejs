@@ -16,14 +16,14 @@
 
             <div class="header">
                 <div>
-                    <a href="http://localhost:3000/Agendar" style="margin-right:20px;"> Agendar Partida </a>
-                    <a href="http://localhost:3000/Atleta">Adicionar Atleta</a>
+                    <a href="http://localhost:3000/Atleta" style="margin-right:20px;">Adicionar Atleta</a>
+                    <a href="http://localhost:3000/Partida">Efetivar Partida</a>
                 </div>
                 <a href="http://localhost:3000/menu"><img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas"
                         class="logo"></a>
                 <a href="http://localhost:3000/Dados">Buscar Dados</a>
             </div>
-            <form action="/Partida" method="PATCH">
+            <form action="/Agendar" method="POST">
 
                 <div class="buscaPeso">
 
@@ -76,32 +76,6 @@
 
                     </div>
 
-                </div>
-
-                <div class="line1">
-                    <div class="busca-atleta1">
-                        <input type="text" name="atleta1" id="atleta1" placeholder="Atleta 1" required>
-                        <ul id="listaAtleta1">
-
-                        </ul>
-                    </div>
-                    <input type="number" name="ponto1" id="ponto1" required>
-                    <input type="text" name="falta1" id="falta1" placeholder="Faltas">
-                </div>
-
-                    <p class="rounds">Rounds</p>
-
-                <div class="line1">
-                    <div class="busca-atleta2">
-                    <input type="text" name="atleta2" id="atleta2" placeholder="Atleta 2" required>
-                    <ul id="listaAtleta2">
-
-                    </ul>
-                    </div>
-                    <input type="number" name="ponto2" id="ponto2" required>
-                    <input type="text" name="falta2" id="falta2" placeholder="Faltas">
-                </div>
-
                 <div class="line3">
                     <p>Data</p>
                     <input type="date" name="date1" id="date1" min="2024-01-01" max="2024-12-31" required>
@@ -121,53 +95,6 @@
 
 
     <script>
-
-let atletas = [];
-
-fetch('api/atletas')
-    .then(res => res.json())
-    .then(json => {
-        atletas = json;
-    });
-
-function criarLista(inputId, listaId) {
-    const input = document.getElementById(inputId);
-    const tabela = document.getElementById(listaId);
-    tabela.style.display = "none";
-
-    input.addEventListener('input', function() {
-        const filtro = input.value.toUpperCase();
-        tabela.innerHTML = '';
-        if (filtro) {
-            atletas.filter(item => item.athlete.toUpperCase().includes(filtro))
-                .sort((a, b) => a.athlete.localeCompare(b.athlete))
-                .slice(0, 5)
-                .forEach((item) => {
-                    const li = document.createElement("li");
-                    li.setAttribute("onclick", `mudarValor('${item.athlete}', '${inputId}', '${listaId}')`);
-                    li.innerHTML = `<span>${item.athlete}</span>`;
-                    tabela.appendChild(li);
-                });
-            tabela.style.display = "block";
-        } else {
-            tabela.style.display = "none";
-        }
-    });
-}
-
-function mudarValor(valor, inputId, lista) {
-    const input = document.getElementById(inputId);
-    const tabela = document.getElementById(lista);
-
-    tabela.style.display = "none";
-    input.value = valor;
-}
-
-
-
-criarLista('atleta1', 'listaAtleta1');
-criarLista('atleta2', 'listaAtleta2');
-
 
     </script>
 

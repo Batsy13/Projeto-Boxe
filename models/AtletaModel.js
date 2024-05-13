@@ -6,6 +6,7 @@ const Atleta = new Schema({
     weight_category: Number,
     athlete: String,
     age: Number,
+    gender: String,
 })
 
 module.exports = mongoose.model('atleta', Atleta,'atleta');
