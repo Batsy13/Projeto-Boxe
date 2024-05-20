@@ -214,7 +214,8 @@ p{
     background-size: cover;
     background-position: center;
     color: aliceblue;
-  
+    margin: auto;
+
     h2 {
       font-size: 24px;
       margin-bottom: 4%;
@@ -385,6 +386,7 @@ p{
   }
 
 
+  
 /* Fim */
 
 .fim-bg{
