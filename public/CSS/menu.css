@@ -77,3 +77,14 @@ a {
     margin: 2rem;
     cursor: pointer;
 }
+
+.voltar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 40px;
+}
+
+path {
+    cursor: pointer;
+}

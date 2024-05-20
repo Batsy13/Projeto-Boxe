@@ -14,26 +14,24 @@ const jwt = require('jsonwebtoken');
 // Middleware
 
 const validateToken = asyncHandler(async (req, res, next) => {
-  try {
-    let token;
-    const authHeader = req.headers.Authorization || req.headers.authorization;
-    if (authHeader && authHeader.startsWith("Bearer")) {
-      token = authHeader.split(" ")[1];
-      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (err) {
-          res.status(401);
-          throw new Error("User is not authorized");
+
+    const token = req.cookies.jwt ;
+
+    if(token){
+      jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, decodedToken) => {
+        if(error){
+          console.log(error.message);
+          res.redirect('/login')
+        }else{
+          console.log(decodedToken);
+          next();
         }
-        req.user = decoded.user;
-        next();
-      });
-    } else {
-      res.status(401);
-      throw new Error("User is not authorized or token is missing");
+      })
     }
-  } catch (error) {
-    next(error);
-  }
+    else{
+      res.redirect('/login')
+    }
+
 });
 // Controllers
 
@@ -42,11 +40,13 @@ const homeController = require("../Controllers/HomeController");
 // Var Global Token
 
 let authToken = '';
+let acessToken = '';
 axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
 
 // Rotas da Home
 route.get('/', homeController.paginaInicial);
 route.get('/login', homeController.logininit);
+route.get('/chaveamento', homeController.chave);
 
 // // Rotas do Login
 
@@ -58,9 +58,10 @@ route.post('/login', async(req,res) =>{
   }
   const user = await juiz.findOne({ username });
   if(user && (password === user.password)) {
-      const acessToken = jwt.sign({
+      acessToken = jwt.sign({
           user:{
               username: user.username,
+              id: user.id,
           },
       }, 
       process.env.ACCESS_TOKEN_SECRET,
@@ -68,6 +69,7 @@ route.post('/login', async(req,res) =>{
   );
       console.log(acessToken)
       authToken = await LoginApi(user.username, user.password);
+      res.cookie('jwt', acessToken, {httpOnly: true})
       console.log(authToken);
       res.render("menu");
   }else{
@@ -95,19 +97,19 @@ route.get("/menu",validateToken, (req, res) => {
   res.render("menu");
 })
 
-route.get("/Atleta", (req,res) => {
+route.get("/Atleta",validateToken, (req,res) => {
   res.render("Atleta");
 });
 
-route.get("/Partida", (req,res) => {
+route.get("/Partida", validateToken,(req,res) => {
   res.render("Partida");
 });
 
-route.get("/Dados",(req,res) => {
+route.get("/Dados", validateToken ,(req,res) => {
   res.render("Dados");
 });
 
-route.get("/Agendar", (req,res) => {
+route.get("/Agendar", validateToken ,(req,res) => {
   res.render("Agendar");
 })
 
@@ -127,13 +129,12 @@ route.post("/Atleta", async (req,res) => {
 });
 
 route.patch("/Partida", async (req,res) => {
-  const { id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2 } = req.body;
+  const { id_categoria, id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2 } = req.body;
   try {
-    // Encontra o documento pelo id_partida e atualiza os campos necessários
-    const part = await partida.findByIdAndUpdate(
-      id_partida, // condição para encontrar o documento
-      { id_categoria: categoria, id_atleta: atleta1, id_atleta2: atleta2, ponto1, ponto2, falta1, falta2 }, // os dados para atualizar
-      { new: true } // opção para retornar o documento atualizado
+    const part = await partida.findOneAndUpdate(
+      { id_categoria: id_categoria, id_partida: id_partida }, 
+      { id_atleta: atleta1, id_atleta2: atleta2, ponto1, ponto2, falta1, falta2 }, 
+      { new: true } 
     );
     if (!part) {
       return res.status(404).json({ message: 'Partida não encontrada' });
@@ -149,22 +150,34 @@ route.patch("/Partida", async (req,res) => {
 
 
 route.post("/Agendar", async(req,res) => {
+  let data1 = new Date(req.body.date1);
+  let dia = toISOStringWithTimezone(data1);
+
+  const partidaExistente = await partida.findOne({
+    id_categoria: req.body.categoria,
+    id_partida: req.body.id_partida,
+  })
+  
+  if( partidaExistente ){
+    return res.send("<script>  window.alert('Erro: Partida já cadastrada '); window.location.href = '/Agendar'</script>");
+  }
+
   const agendar = await partida.create({
     id_categoria: req.body.categoria,
     id_partida: req.body.partida,
-    id_atleta: req.body.atleta1,
-    id_atleta2: req.body.atleta2,
-    ponto1: req.body.ponto1,
-    ponto2: req.body.ponto2,
-    falta1: req.body.falta1,
-    falta2: req.body.falta2,
-    date: req.body.date1,
+    id_atleta: null,
+    id_atleta2: null,
+    ponto1: null,
+    ponto2: null,
+    falta1: null,
+    falta2: null,
+    date: dia,
     local: req.body.local,
   })
 
   try{
     const agendarapi = {
-      data:req.body.date1,
+      data: dia,
       local: req.body.local,
       fase: req.body.partida,
     }
@@ -206,5 +219,24 @@ route.get('/api/paises',async (req, res) => {
     res.status(500).send('Erro ao buscar países'); // Envia uma mensagem de erro se a solicitação falhar
   });
 });
+
+// Funções
+
+function toISOStringWithTimezone(date) {
+  var tzo = -date.getTimezoneOffset(),
+      dif = tzo >= 0 ? '+' : '-',
+      pad = function(num) {
+          var norm = Math.floor(Math.abs(num));
+          return (norm < 10 ? '0' : '') + norm;
+      };
+  return date.getFullYear() +
+      '-' + pad(date.getMonth() + 1) +
+      '-' + pad(date.getDate()) +
+      'T' + pad(date.getHours()) +
+      ':' + pad(date.getMinutes()) +
+      ':' + pad(date.getSeconds()) +
+      dif + pad(tzo / 60) +
+      ':' + pad(tzo % 60);
+}
 
 module.exports = route;

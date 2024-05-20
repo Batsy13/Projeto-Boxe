@@ -20,6 +20,7 @@ html{
     scroll-behavior: smooth;
     color:var(--text);
     overflow-x:hidden;
+    list-style:none;
 }
 
 h1{
@@ -120,34 +121,33 @@ p{
     background-color:var(--background);
 }
 
-/* #Regras {
+#Regras {
     position: relative;
     height: auto;
     text-align: center;
   }
-  #meio {
+#meio {
     display: flex;
   }
-  #Regras h3 {
-    margin: 50px 0px;
+#Regras h3 {
+    padding: 50px 0px;
   }
-  #Regras .conteudo {
+#Regras .conteudo {
     margin: 50px 80px;
   }
-  #Regras #meio li {
+#Regras #meio li {
     position: relative;
-  }
-  #Regras #meio li img {
     display: block;
     margin: auto;
     border-radius: 15px;
   }
-  #Regras #meio .centralizado {
+
+#Regras #meio .centralizado {
     position: absolute;
     width: 100%;
     top: 27%;
   }
-  @media (max-width: 800px) {
+@media (max-width: 800px) {
     #meio {
       display: block;
     }
@@ -157,7 +157,7 @@ p{
     .falta {
       margin-bottom: 100px;
     }
-  } */
+  }
 
 
 /* História */
@@ -166,7 +166,7 @@ p{
     background-color:var(--background);
 
 }
-/* #historia {
+#historia {
     height: auto;
     position: relative;
     background-repeat: no-repeat;
@@ -175,30 +175,29 @@ p{
     border: 1px solid #0b0b0d;
     background-color: #0b0b0d;
   }
-  #historia h3 {
+#historia h3 {
     text-align: center;
     margin: 50px 0px;
   }
-  #historia ul {
+#historia ul {
     margin: 50px 0px;
   }
-  #historia ul li {
+#historia ul li {
     text-indent: 20px;
     display: block;
     text-align: center;
   }
-  #historia ul .conteudo {
+#historia ul .conteudo {
     margin: 50px 80px;
   }
-  #historia ul li img {
+#historia ul li img {
     border-radius: 15px;
-  } */
+  }
 
-  /* .stylepop {
+.stylepop {
     position: absolute;
-    height: 79.8%;
+    height: 387px;
     width: 100%;
-    transform: translate(-50%);
     border: none;
     appearance: none;
     background-color: transparent;
@@ -206,7 +205,7 @@ p{
     cursor: pointer;
   }
   
-  .styledentropop {
+.styledentropop {
     width: 80%;
     height: 80%;
     border-radius: 14px;
@@ -224,40 +223,40 @@ p{
       font-size: 20px;
       margin-bottom: 3%;
     }
-  }
-  #popfalta {
-    background-image: url(imagens/PopFaltas.png);
-  }
+}
+#popfalta {
+    background-image: url(../IMG/PopFaltas.png);
+}
   
-  #popfalta nav {
+#popfalta nav {
     margin-top: 1%;
     font-size: 20px;
-  }
-  #popfalta nav li {
+}
+#popfalta nav li {
     margin-top: 1%;
     list-style: disc;
-  }
-  #fechar {
+}
+#fechar {
     text-align: right;
-  }
-  #fechar button {
+}
+#fechar button {
     background-color: transparent;
     appearance: none;
     color: aliceblue;
-  }
+}
   
-  #popgolpe {
-    background-image: url(imagens/popgolpe1227x778.png);
+#popgolpe {
+    background-image: url(../IMG/popgolpe1227x778.png);
     text-align: justify;
-  }
-  #popgolpe h2 {
+}
+#popgolpe h2 {
     text-align: justify;
-  }
+}
   
-  #popgolpe p {
+#popgolpe p {
     width: 80%;
     font-size: 16px;
-  }
+}
   
   
   #botaolateral{
@@ -273,7 +272,7 @@ p{
     border: none;
   }
   #popdireita{
-    background-image: url(imagens/popgolpe1227x778.png);
+    background-image: url(../IMG/popgolpe1227x778.png);
   }
   
   #popgolpe h2{
@@ -290,22 +289,22 @@ p{
     border: none;
     cursor: pointer;
     margin-top: 45px;
-  } */
+  }
   
   
   /* POP RINGUE */
   
   /* /=============== POP-UP ====================/ */
   
-  /* #popringue{
-    background-image: url("imagens/ringueescuro.jpg");
+  #popringue{
+    background-image: url("../IMG/ringueescuro.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-  } */
+  }
   
   /* /================ BODY ====================/ */
   
-  /* .paragraph{
+  .paragraph{
     width: 850px;
     
   }
@@ -358,11 +357,11 @@ p{
     justify-content: center;
     align-items: center;
     z-index: 100;
-  } */
+  }
   
   /* /================== CARDS ==============/ */
   
-  /* .card-position1{
+  .card-position1{
     padding-top: 22px;
     display: flex;
     flex-direction: row;
@@ -383,7 +382,7 @@ p{
     top: 50px;
     margin-right: 5rem;
     margin-left: 5rem;
-  } */
+  }
 
 
 /* Fim */

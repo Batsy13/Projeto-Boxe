@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const routes = require('./routes/routes');
 const BodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 const ejs = require('ejs');
 const mongoose = require('mongoose');
 const Juiz = require("./models/juizModel");
@@ -20,6 +21,7 @@ const port = 3000;
 // View engine setup
 
 app.use(BodyParser.urlencoded({extended:true}));
+app.use(cookieParser());
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine', 'ejs');
 

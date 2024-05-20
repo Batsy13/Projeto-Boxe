@@ -5,3 +5,7 @@ exports.paginaInicial = (req,res) => {
 exports.logininit = (req,res) =>{
     res.render('login');
 }
+
+exports.chave = (req,res) => {
+    res.render('chaveamento');
+}
