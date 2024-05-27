@@ -44,11 +44,11 @@
                 <div class="category" onclick="mostrar('7')">Pesado 82-91kg</div>
                 <div class="category" onclick="mostrar('8')">Super Pesado +91kg</div>
                 <div class="category classe">Feminino</div>
-                <div class="category" onclick="mostrar('peso-mosca-f')">Peso Mosca 48-51kg</div>
-                <div class="category" onclick="mostrar('peso-pena-f')">Peso Pena 52-57kg</div>
-                <div class="category" onclick="mostrar('peso-leve-f')">Peso Leve 58-63kg</div>
-                <div class="category" onclick="mostrar('peso-meio-medio-f')">Meio-Médio 64-69kg</div>
-                <div class="category" onclick="mostrar('peso-medio-f')">Peso Médio 70-75kg</div>
+                <div class="category" onclick="mostrar('9')">Peso Mosca 48-51kg</div>
+                <div class="category" onclick="mostrar('10')">Peso Pena 52-57kg</div>
+                <div class="category" onclick="mostrar('11')">Peso Leve 58-63kg</div>
+                <div class="category" onclick="mostrar('12')">Meio-Médio 64-69kg</div>
+                <div class="category" onclick="mostrar('13')">Peso Médio 70-75kg</div>
             </aside>
 
             <div class="main-content" id="main-content">
@@ -164,8 +164,8 @@
                             </div>
                             <div class="time">
                                 <img id="icon14" class="icon"></img>
-                                <span id="nome14" class="nome">Jorge</span>
-                                <span id="num14" class="num">0</span>
+                                <span id="nome14" class="nome"></span>
+                                <span id="num14" class="num"></span>
                             </div>
 
                         </div>
@@ -183,7 +183,7 @@
         async function mostrar(categoria) {
 
             try {
-                const response = await fetch(`/api/${categoria}`);
+                const response = await fetch(`/api/categoria/${categoria}`);
                 const partidas = await response.json();
 
                 partidas.forEach((partida, index) => {

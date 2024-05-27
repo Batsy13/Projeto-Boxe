@@ -16,11 +16,11 @@
 
             <div class="header">
                 <div>
-                    <a href="http://localhost:3000/Agendar" style="margin-right:20px;"> Agendar Partida </a>
-                    <a href="http://localhost:3000/Partida"> Efetivar Partida</a>
+                    <a href="./Agendar" style="margin-right:20px;"> Agendar Partida </a>
+                    <a href="./Partida"> Efetivar Partida</a>
                 </div>
-                <img href="/menu"src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo">
-                <a href="http://localhost:3000/Atleta">Cadastrar Atleta</a>
+                <a href="./menu"><img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
+                <a href="./Atleta">Cadastrar Atleta</a>
             </div>
                 <input type="text" id="search"placeholder="Pesquisar">
                 <ul id="lista">
@@ -33,7 +33,7 @@
 
 <script>
 
-fetch('http://localhost:3000/api/atletas')
+fetch('/api/atletas')
 .then(res => res.json())
 .then(atletas => {
     const ul = document.getElementById('lista');
@@ -70,7 +70,7 @@ function editarAtleta(id) {
         event.preventDefault();
         const novosDadosDoAtleta = {
             country: form.country.value,
-            weight_category: form.weight_category.value,
+            weight: form.weight_category.value,
             athlete: form.athlete.value,
             age: form.age.value
         };
@@ -79,7 +79,7 @@ function editarAtleta(id) {
     });
 
     // Cria os campos de entrada para cada propriedade do atleta
-    ['country', 'weight_category', 'athlete', 'age'].forEach(function(prop) {
+    ['country', 'weight', 'athlete', 'age'].forEach(function(prop) {
         const input = document.createElement('input');
         input.className = 'inputs';
         input.type = 'text';
@@ -103,7 +103,7 @@ function editarAtleta(id) {
 }
 
 function atualizarAtleta(id, novosDadosDoAtleta) {
-    fetch('http://localhost:3000/atletas/' + id, {
+    fetch('/api/atletas/' + id, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ function atualizarAtleta(id, novosDadosDoAtleta) {
 
 
 function excluirAtleta(id) {
-    fetch('http://localhost:3000/atletas/' + id, {
+    fetch('/api/atletas/' + id, {
         method: 'DELETE',
     })
     .then(response => response.json())

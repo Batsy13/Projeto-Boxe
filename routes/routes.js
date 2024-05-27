@@ -167,20 +167,27 @@ route.post("/Atleta", async (req,res) => {
   
 });
 
-route.patch("/Partida", async (req,res) => {
-  const { id_categoria, id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2 } = req.body;
+route.patch("/Partida", async (req, res) => {
+  const { categoria, partida1, atleta1, atleta2, ponto1, ponto2, falta1, falta2} = req.body;
   try {
     const part = await partida.findOneAndUpdate(
-      { id_categoria: id_categoria, id_partida: id_partida }, 
-      { id_atleta: atleta1, id_atleta2: atleta2, ponto1, ponto2, falta1, falta2 }, 
-      { new: true } 
+      { id_categoria: categoria, id_partida: partida1 },
+      { 
+        id_atleta: atleta1, 
+        id_atleta2: atleta2, 
+        ponto1: ponto1, 
+        ponto2: ponto2, 
+        falta1: falta1, 
+        falta2: falta2,
+      },
+      { new: true }
     );
+    console.log(part)
     if (!part) {
       return res.status(404).json({ message: 'Partida não encontrada' });
     }
-    // const partidaData = {id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2};
-    // await axios.patch(`${url}esportes/${idboxe}/partidas`, partidaData );
-    // return res.status(200).json(part);
+    return res.status(200).json(part);
+
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro ao atualizar a partida' });
@@ -218,12 +225,12 @@ route.post("/Agendar", async(req,res) => {
       await partida.create({
         id_categoria: req.body.categoria,
         id_partida: req.body.partida,
-        id_atleta: null,
-        id_atleta2: null,
-        ponto1: null,
-        ponto2: null,
-        falta1: null,
-        falta2: null,
+        id_atleta: "",
+        id_atleta2: "",
+        ponto1: 0,
+        ponto2: 0,
+        falta1: "",
+        falta2: "",
         date: dia,
         local: req.body.local,
         fase: fasec,
@@ -249,24 +256,24 @@ route.post("/Agendar", async(req,res) => {
   // }
 })
 
-// Rotas Dados
+// Api
 
-route.get('/atletas', async (req, res) => {
-  const atletas = await atleta.find().sort('nome');
+route.get('/api/atletas', async (req, res) => {
+  const atletas = await atleta.find().sort('athlete');
   res.json(atletas);
 });
 
-route.put('/atletas/:id', async (req, res) => {
+route.put('/api/atletas/:id', async (req, res) => {
   const atletas = await atleta.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(atletas);
 });
 
-route.delete('/atletas/:id', async (req, res) => {
+route.delete('/api/atletas/:id', async (req, res) => {
   await atleta.findByIdAndDelete(req.params.id);
   res.json({ message: 'Atleta excluído' });
 });
 
-// Api
+
 
 route.get('/api/paises',async (req, res) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
@@ -280,9 +287,9 @@ route.get('/api/paises',async (req, res) => {
   });
 });
 
-route.get('/api/:categorias', async (req,res) => {
+route.get('/api/categoria/:categorias', async (req,res) => {
   try{
-    const partidasArray = await partida.find({ id_categoria: req.params.categorias }).exec();
+    const partidasArray = await partida.find({ id_categoria: req.params.categorias }).sort({ id_categoria: 1, id_partida: 1 }).exec();
     console.log(partidasArray);
     res.json(partidasArray);
   }
@@ -291,6 +298,25 @@ route.get('/api/:categorias', async (req,res) => {
   }
 
 })
+
+
+route.get('/api/partida', async (req, res) => {
+  const { categoria, partida1 } = req.query;
+
+  try {
+      const partidaEncontrada = await partida.findOne({ id_categoria: categoria, id_partida: partida1 });
+      
+      if (partidaEncontrada) {
+          console.log(partidaEncontrada);
+          res.json(partidaEncontrada);
+      } else {
+          res.status(404).send('Partida não encontrada');
+      }
+  } catch (error) {
+      console.error('Erro ao buscar partida:', error);
+      res.status(500).send('Erro no servidor');
+  }
+});
 
 // Funções
 
