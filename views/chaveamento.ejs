@@ -186,10 +186,19 @@
                 const response = await fetch(`/api/categoria/${categoria}`);
                 const partidas = await response.json();
 
+                // Limpa todos os elementos antes de preenchê-los
+                for (let i = 1; i <= 14; i++) {
+                    const imgElement = document.getElementById(`img${i}`);
+                    const nomeElement = document.getElementById(`nome${i}`);
+                    const numElement = document.getElementById(`num${i}`);
+
+                    // if (imgElement) imgElement.src = '';
+                    nomeElement.textContent = '';
+                    numElement.textContent = '';
+                }
+
                 partidas.forEach((partida, index) => {
                     const baseIndex = index * 2 + 1;
-                    console.log(partida);
-                    console.log(index);
                     // Elementos para o primeiro lutador
                     const imgElement1 = document.getElementById(`img${baseIndex}`);
                     const nomeElement1 = document.getElementById(`nome${baseIndex}`);
@@ -203,12 +212,12 @@
                     // Atualiza elementos do primeiro lutador
                     // imgElement1.src = partida.img_url1; 
                     nomeElement1.textContent = partida.id_atleta;
-                    numElement1.textContent = partida.ponto1; // Supondo que o número do primeiro lutador esteja em partida.num1
-                    console.log(partida.fase);
+                    numElement1.textContent = partida.ponto1;
+
                     // Atualiza elementos do segundo lutador
-                    // imgElement2.src = partida.img_url2; // Supondo que a URL da imagem do segundo lutador esteja em partida.img_url2
-                    nomeElement2.textContent = partida.id_atleta2; // Supondo que o nome do segundo lutador esteja em partida.nome2
-                    numElement2.textContent = partida.ponto2; // Supondo que o número do segundo lutador esteja em partida.num2
+                    // imgElement2.src = partida.img_url2;
+                    nomeElement2.textContent = partida.id_atleta2; 
+                    numElement2.textContent = partida.ponto2;
                 });
             } catch (error) {
                 console.error('Erro ao buscar partidas:', error);
