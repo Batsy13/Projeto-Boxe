@@ -18,7 +18,7 @@ const app = express();
 const url = "http://teste-olimpiadas-iesb.sa-east-1.elasticbeanstalk.com/";
 const port = 3000;
 
-// View engine setup
+// View engine setup / parser
 
 app.use(BodyParser.urlencoded({extended:true}));
 app.use(cookieParser());

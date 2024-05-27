@@ -32,6 +32,9 @@ var partida = new Schema({
     local: {
         type:String
     },
+    fase: {
+        type:String
+    },
 
 })
 

@@ -117,14 +117,53 @@ route.get("/Agendar", validateToken ,(req,res) => {
 
 route.post("/Atleta", async (req,res) => {
 
-  const atlet = await atleta.create({
-    country: req.body.pais,
-    weight_category: req.body.peso,
-    athlete: req.body.atleta,
-    age: req.body.idade,
-    gender: req.body.genero,
-  })
-  res.send("<script>  window.alert('Atleta Adicionado Com sucesso'); window.location.href = '/Atleta'</script>");
+  categoria = "";
+  peso = req.body.peso;
+
+  switch (true) {
+    case peso >= 48 && peso <= 52:
+        categoria = "Peso Mosca";
+        break;
+    case peso >= 53 && peso <= 57:
+        categoria = "Peso Pena";
+        break;
+    case peso >= 58 && peso <= 63:
+        categoria = "Peso Leve";
+        break;
+    case peso >= 64 && peso <= 69:
+        categoria = "Meio-Médio";
+        break;
+    case peso >= 70 && peso <= 75:
+        categoria = "Peso Médio";
+        break;
+    case peso >= 76 && peso <= 81:
+        categoria = "Meio-Pesado";
+        break;
+    case peso >= 82 && peso <= 91:
+        categoria = "Pesado";
+        break;
+    case peso > 91:
+        categoria = "Super Pesado";
+        break;
+    default:
+        categoria = "Peso não categorizado";
+}
+  try{
+    const atlet = await atleta.create({
+      country: req.body.pais,
+      weight: peso,
+      weight_category: categoria,
+      athlete: req.body.atleta,
+      age: req.body.idade,
+      gender: req.body.genero,
+    })
+    console.log(atlet);
+    return res.send("<script>  window.alert('Atleta Adicionado Com sucesso'); window.location.href = '/Atleta'</script>");
+  }
+  catch(error){
+    console.log(error);
+    return res.send("<script> window.alert('Houve um erro'); window.location.href = '/Atleta'</script>")
+  }
   
 });
 
@@ -139,9 +178,9 @@ route.patch("/Partida", async (req,res) => {
     if (!part) {
       return res.status(404).json({ message: 'Partida não encontrada' });
     }
-    const partidaData = {id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2};
-    await axios.patch(`${url}esportes/${idboxe}/partidas`, partidaData );
-    return res.status(200).json(part);
+    // const partidaData = {id_partida, categoria, atleta1, atleta2, ponto1, ponto2, falta1, falta2};
+    // await axios.patch(`${url}esportes/${idboxe}/partidas`, partidaData );
+    // return res.status(200).json(part);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: 'Erro ao atualizar a partida' });
@@ -153,40 +192,61 @@ route.post("/Agendar", async(req,res) => {
   let data1 = new Date(req.body.date1);
   let dia = toISOStringWithTimezone(data1);
 
-  const partidaExistente = await partida.findOne({
-    id_categoria: req.body.categoria,
-    id_partida: req.body.id_partida,
-  })
-  
-  if( partidaExistente ){
-    return res.send("<script>  window.alert('Erro: Partida já cadastrada '); window.location.href = '/Agendar'</script>");
-  }
+  let fasec = determinarFase(req.body.partida);
 
-  const agendar = await partida.create({
-    id_categoria: req.body.categoria,
-    id_partida: req.body.partida,
-    id_atleta: null,
-    id_atleta2: null,
-    ponto1: null,
-    ponto2: null,
-    falta1: null,
-    falta2: null,
-    date: dia,
-    local: req.body.local,
-  })
+  try {
+    // Verifique se a partida já existe com base nos atributos id_partida e id_categoria
+    const existingPartida = await partida.findOne({
+      id_partida: req.body.partida,
+      id_categoria: req.body.categoria,
+    });
 
-  try{
-    const agendarapi = {
-      data: dia,
-      local: req.body.local,
-      fase: req.body.partida,
+    if (existingPartida) {
+      // A partida já existe, atualize-a
+      await partida.updateOne(
+        { _id: existingPartida._id }, // Filtra pelo ID da partida existente
+        {
+          $set: {
+            date: dia,
+            local: req.body.local,
+          },
+        }
+      );
+      return res.send("<script>  window.alert('Partida Atualizada Com Sucesso'); window.location.href = '/Agendar'</script>");
+    } else {
+      // A partida não existe, crie um novo documento
+      await partida.create({
+        id_categoria: req.body.categoria,
+        id_partida: req.body.partida,
+        id_atleta: null,
+        id_atleta2: null,
+        ponto1: null,
+        ponto2: null,
+        falta1: null,
+        falta2: null,
+        date: dia,
+        local: req.body.local,
+        fase: fasec,
+      });
+      return res.send("<script>  window.alert('Partida Agendada Com Sucesso'); window.location.href = '/Agendar'</script>");
     }
-    axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
-    await axios.post(`${url}esportes/${idboxe}/partidas`, agendarapi);
+  } catch (error) {
+    console.error(error);
+    return res.send("<script>  window.alert('Houve um Erro'); window.location.href = '/Agendar'</script>");
   }
-  catch (error){
-    console.log(error);
-  }
+
+  // try{
+  //   const agendarapi = {
+  //     data: dia,
+  //     local: req.body.local,
+  //     fase: fasec,
+  //   }
+  //   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
+  //   await axios.post(`${url}esportes/${idboxe}/partidas`, agendarapi);
+  // }
+  // catch (error){
+  //   console.log(error);
+  // }
 })
 
 // Rotas Dados
@@ -220,6 +280,18 @@ route.get('/api/paises',async (req, res) => {
   });
 });
 
+route.get('/api/:categorias', async (req,res) => {
+  try{
+    const partidasArray = await partida.find({ id_categoria: req.params.categorias }).exec();
+    console.log(partidasArray);
+    res.json(partidasArray);
+  }
+  catch(error){
+    console.log(error);
+  }
+
+})
+
 // Funções
 
 function toISOStringWithTimezone(date) {
@@ -237,6 +309,23 @@ function toISOStringWithTimezone(date) {
       ':' + pad(date.getSeconds()) +
       dif + pad(tzo / 60) +
       ':' + pad(tzo % 60);
+}
+
+function determinarFase(fasec) {
+  let partida = fasec;
+  let fase = '';
+
+  if (partida >= 1 && partida <= 4) {
+      fase = 'quartas';
+  } else if (partida >= 5 && partida <= 6) {
+      fase = 'semis';
+  } else if (partida == 7) {
+      fase = 'final';
+  } else {
+      fase = 'valor inválido';
+  }
+
+  return fase;
 }
 
 module.exports = route;

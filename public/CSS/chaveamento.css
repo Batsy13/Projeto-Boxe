@@ -143,10 +143,13 @@ p{
     background-color: #000;
     box-sizing:content-box;
     display:flex;
+    justify-content: space-around;
     flex-direction: row;
     height: 60px;
     user-select: none;
     border: 1px solid rgb(17, 17, 17);
+    font-weight: bold;
+    font-size: 24px;
 }
 
 /*    */
