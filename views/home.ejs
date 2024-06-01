@@ -106,7 +106,11 @@
               </p>
               <div id="botaolateral"> <button id="boataodireita"><img src="./IMG/Vectorrigth.png" alt=""></button></div>
               <dialog id="popdireita" class="styledentropop"> 
-
+                <nav id="fechar">
+                  <button>
+                    x
+                  </button>
+                </nav>
                 <h2>Ganchos</h2>
                 <p>O gancho no boxe pode ser lançado com qualquer mão e é um dos 4 socos básicos no boxe (jab, cruzados, ganchos e uppercuts). Normalmente mirado para o lado da cabeça ou do maxilar tem mais potência que os socos retos, mas o arco do soco torna um pouco mais fácil de bloquear. <br><br>O posicionamento do polegar ao arremessar um gancho é de suma importância. As duas opções são que o polegar esteja voltado para cima ou a palma da mão para baixo. E a resposta correta é que ambas são formas adequadas do gancho.</p>
                 <div id="botaolateral2"> <button id="boataoesquerdo"><img src="./IMG/Vectorleft.png" alt=""></button></div>
@@ -249,7 +253,17 @@
     </section> 
 
     <section id="fim" class="fim-bg page">
-        <footer></footer>
+        <footer class="footer">
+
+          <svg width="3" height="31" viewBox="0 0 3 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="1.99944" y1="0.0333148" x2="0.999445" y2="30.0333" stroke="white" stroke-width="2"/>
+            </svg>
+            
+            <a href="#">            <svg width="48" height="30" viewBox="0 0 48 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5.64 29.6398L24 11.3198L42.36 29.6398L48 23.9998L24 -0.000244141L0 23.9998L5.64 29.6398Z" fill="white"/>
+              </svg></a>
+              
+        </footer>
     </section>
 
 
@@ -265,7 +279,8 @@ const fechargolpe = document.querySelector("#popgolpe #fechar");
 
 const direita = document.querySelector("#boataodireita");
 const modaldireita = document.querySelector("#popdireita");
-const fechardireita = document.querySelector("#popdireita #boataoesquerdo")
+const fechardireita = document.querySelector("#popdireita #fechar")
+const mostrarnovamente = document.querySelector("#popdireita #boataoesquerdo")
 
 const ringue = document.querySelector("#botaoringue");
 const modalringue = document.querySelector("#popringue");
@@ -290,7 +305,13 @@ fechargolpe.onclick = function () {
 direita.onclick = function () {
   modaldireita.showModal();
 };
+
 fechardireita.onclick = function () {
+  modaldireita.close();
+  modalgolpe.close();
+}
+
+mostrarnovamente.onclick = function () {
   modaldireita.close();
 }
 

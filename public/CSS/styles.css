@@ -147,17 +147,6 @@ p{
     width: 100%;
     top: 27%;
   }
-@media (max-width: 800px) {
-    #meio {
-      display: block;
-    }
-    #meio li {
-      margin-top: 10px;
-    }
-    .falta {
-      margin-bottom: 100px;
-    }
-  }
 
 
 /* História */
@@ -242,10 +231,18 @@ p{
 }
 #fechar button {
     background-color: transparent;
-    appearance: none;
+    height: 30px;
+    width: 30px;
+    margin: 10px;
+    cursor:pointer;
+    border: 1px solid #FFF;
     color: aliceblue;
 }
   
+#boataoesquerdo {
+  padding-left: 30px;
+}
+
 #popgolpe {
     background-image: url(../IMG/popgolpe1227x778.png);
     text-align: justify;
@@ -394,4 +391,43 @@ p{
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+.footer{
+
+  height: 160px;
+  position: relative;
+  display:flex;
+  top: 850px;
+}
+
+.footer svg {
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  .menu {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .menu ul {
+    margin-top: 20px;
+  }
+
+  .logo-olim {
+    margin-bottom: 20px;
+  }
+
+  #meio {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  #Regras #meio .centralizado {
+    top: initial;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
 }

@@ -16,120 +16,99 @@
 
             <div class="header">
                 <div>
-                    <a href="http://localhost:3000/Agendar" style="margin-right:20px;"> Agendar Partida </a>
-                    <a href="http://localhost:3000/Partida"> Efetivar Partida </a>
+                    <a href="./Agendar" style="margin-right:30px;"> Agendar Partida </a>
+                    <a href="./Partida"> Efetivar Partida </a>
                 </div>
-                <a href="http://localhost:3000/menu"><img  src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
-                <a href="http://localhost:3000/Dados">Buscar Dados</a>
+                <a href="./menu"><img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
+                <div>
+                    <a href="./Dados" style="margin-right:30px;">Buscar Dados</a>
+                    <a href="./DadosPartidas">Buscar Partidas</a>
+                </div>
             </div>
-            <form action="/Atleta" method="POST">
+            <form action="/Atleta" method="POST" id="atletaForm">
 
                 <div class="line1">
-
-                    <input type="text" name="atleta" id="atleta" placeholder="Nome" required>
+                    <input type="text" name="atleta" id="atleta" placeholder="Nome" required maxlength="80">
 
                     <div class="buscapais">
-                        <input type="text" name="pais" id="pais" placeholder="País" onkeyup="filtrar()" required>
-
-                    <ul id="listaPaises">
-                    </ul>
-
+                        <input type="text" name="pais" id="pais" placeholder="País" onkeyup="filtrar()" required maxlength="30">
+                        <ul id="listaPaises"></ul>
                     </div>
-                    
                 </div>
-                
+
                 <div class="line1">
-
-                    <input type="number" name="peso" id="peso" placeholder="Peso" required>
-                    <input type="number" name="idade" id="idade" placeholder="Idade" required>
-
+                    <input type="number" name="peso" id="peso" placeholder="Peso" required maxlength="10">
+                    <input type="number" name="idade" id="idade" placeholder="Idade" required maxlength="2">
                 </div>
 
                 <div class="line2">
-
                     <select name="genero" id="genero">
                         <option value="M">Masculino</option>
                         <option value="F">Feminino</option>
                     </select>
-
                 </div>
 
                 <button class="submit" type="submit"> Cadastrar Atleta </button>
-
             </form>
         </div>
 
     </section>
 
     <script>
+        let paises = [];
 
-fetch('api/paises')
-    .then(res => res.json())
-    .then(json => {
-        console.log(json);
-        const ul = document.getElementById('listaPaises');
-        json.sort((a, b) => a.nome.localeCompare(b.nome)).slice(0, 5).forEach((item) => {
-            const li = document.createElement("li");
-            li.setAttribute("onclick", `mudarValor('${item.nome}')`);
-            li.innerHTML = `<span>${item.nome}</span>`;
-            ul.appendChild(li);
-        });
-    });
+        fetch('api/paises')
+            .then(res => res.json())
+            .then(json => {
+                paises = json;
+                console.log(paises);
+                const ul = document.getElementById('listaPaises');
+                json.sort((a, b) => a.nome.localeCompare(b.nome)).forEach((item) => {
+                    const li = document.createElement("li");
+                    li.setAttribute("onclick", `mudarValor('${item.nome}', '${item._id}')`);
+                    li.innerHTML = `<span>${item.nome}</span>`;
+                    ul.appendChild(li);
+                });
+            });
 
-function mudarValor(pais){
+        function mudarValor(pais, id) {
+            console.log(pais + ' ' + id);
+            const ul = document.getElementById('listaPaises');
+            const input = document.getElementById('pais');
+            input.value = pais;
+            ul.style.display = "none";
 
-    ul = document.getElementById('listaPaises');
-    input = document.getElementById('pais');
-
-    ul.style.display = "none";
-
-    input.value = pais;
-    
-}
-
-function filtrar(){
-
-    var input,
-        filter,
-        ul,
-        li,
-        a,
-        i,
-        span,
-        txtValue,
-        count = 0
-
-    input = document.getElementById('pais');
-    ul = document.getElementById('listaPaises');
-    li = ul.getElementsByTagName("li");
-
-    filter = input.value.toUpperCase();
-
-    for (i = 0; i < li.length; i++) {
-        
-        span = li[i].getElementsByTagName("span")[0];
-        txtValue = span.textContent || span.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-
-            li[i].style.display = "";
-
-            count++
-        } else {
-            li[i].style.display = "none";
+            let hiddenInput = document.querySelector('input[name="country_id"]');
+            if (!hiddenInput) {
+                hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "country_id";
+                const form = document.getElementById('atletaForm');
+                form.appendChild(hiddenInput);
+            }
+            hiddenInput.value = id;
         }
-    }
-    
-     if(filter ===""){ 
-	 ul.style.display = "none";
-	 }else{ 
-	 ul.style.display = "block";
-	 }
 
+        function filtrar() {
+            const input = document.getElementById('pais');
+            const filter = input.value.toUpperCase();
+            const ul = document.getElementById('listaPaises');
+            const li = ul.getElementsByTagName("li");
 
-}
-
+            let count = 0;
+            for (let i = 0; i < li.length; i++) {
+                const span = li[i].getElementsByTagName("span")[0];
+                const txtValue = span.textContent || span.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1 && count < 5) {
+                    li[i].style.display = "";
+                    count++;
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+            ul.style.display = filter === "" ? "none" : "block";
+        }
     </script>
 </body>
-
 
 </html>

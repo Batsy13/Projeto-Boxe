@@ -15,12 +15,26 @@
         <div class="conteiner">
 
             <div class="header">
-                <div>
-                    <a href="./Atleta" style="margin-right:20px;">Adicionar Atleta</a>
+                <div class="nav-links">
+                    <a href="./Atleta" style="margin-right:30px;">Adicionar Atleta</a>
                     <a href="./Partida">Efetivar Partida</a>
                 </div>
                 <a href="./menu"><img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
-                <a href="./Dados">Buscar Dados</a>
+                <div class="nav-links">
+                    <a href="./Dados" style="margin-right:30px;">Buscar Dados</a>
+                    <a href="./DadosPartidas">Buscar Partidas</a>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="mobile-menu">
+                    <a href="./Agendar"> Agendar Partida </a>
+                    <a href="./Atleta">Adicionar Atleta</a>
+                    <a href="./Dados">Buscar Dados</a>
+                    <a href="./DadosPartidas">Buscar Partidas</a>
+                </div>
             </div>
             <form action="/Agendar" method="POST">
 
@@ -74,18 +88,38 @@
                         </select>
 
                     </div>
+                    <div class="line1">
 
-                <div class="line3">
-                    <p>Data</p>
-                    <input type="date" name="date1" id="date1" min="2024-01-01" max="2024-12-31" required>
-                </div>
+                        <div class="busca-atleta1">
+                            <input type="text" name="atleta1" id="atleta1" placeholder="Atleta 1" required
+                                maxlength="80">
+                            <ul id="listaAtleta1">
 
-                <div class="line4">
-                    <p>Local</p>
-                    <input type="text" name="local" id="local" placeholder="Cidade" required>
-                </div>
+                            </ul>
+                        </div>
 
-                <input type="submit" class="submit" value="Adicionar Partida">
+                        <div class="busca-atleta2">
+                            <input type="text" name="atleta2" id="atleta2" placeholder="Atleta 2" required
+                                maxlength="80">
+                            <ul id="listaAtleta2">
+
+                            </ul>
+                        </div>
+
+                    </div>
+
+
+                    <div class="line3">
+                        <p>Data</p>
+                        <input type="date" name="date1" id="date1" min="2024-01-01" max="2024-12-31" required>
+                    </div>
+
+                    <div class="line4">
+                        <p>Local</p>
+                        <input type="text" name="local" id="local" placeholder="Cidade" required maxlength="64">
+                    </div>
+
+                    <input type="submit" class="submit" value="Adicionar Partida">
 
             </form>
         </div>
@@ -94,6 +128,65 @@
 
 
     <script>
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('show');
+        }
+
+        window.addEventListener('click', function (event) {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
+
+            if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                mobileMenu.classList.remove('show');
+            }
+        });
+
+
+        let atletas = [];
+
+        fetch('/api/atletas')
+            .then(res => res.json())
+            .then(json => {
+                atletas = json;
+            });
+
+        function criarLista(inputId, listaId) {
+            const input = document.getElementById(inputId);
+            const tabela = document.getElementById(listaId);
+            tabela.style.display = "none";
+
+            input.addEventListener('input', function () {
+                const filtro = input.value.toUpperCase();
+                tabela.innerHTML = '';
+                if (filtro) {
+                    atletas.filter(item => item.athlete.toUpperCase().includes(filtro))
+                        .sort((a, b) => a.athlete.localeCompare(b.athlete))
+                        .slice(0, 5)
+                        .forEach((item) => {
+                            const li = document.createElement("li");
+                            li.setAttribute("onclick", `mudarValor('${item.athlete}', '${inputId}', '${listaId}')`);
+                            li.innerHTML = `<span>${item.athlete}</span>`;
+                            tabela.appendChild(li);
+                        });
+                    tabela.style.display = "block";
+                } else {
+                    tabela.style.display = "none";
+                }
+            });
+        }
+
+        function mudarValor(valor, inputId, lista) {
+            const input = document.getElementById(inputId);
+            const tabela = document.getElementById(lista);
+
+            tabela.style.display = "none";
+            input.value = valor;
+        }
+
+        criarLista('atleta1', 'listaAtleta1');
+        criarLista('atleta2', 'listaAtleta2');
+
 
     </script>
 

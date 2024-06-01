@@ -15,12 +15,26 @@
         <div class="conteiner">
 
             <div class="header">
-                <div>
-                    <a href="./Agendar" style="margin-right:20px;"> Agendar Partida </a>
+                <div class="nav-links">
+                    <a href="./Agendar" style="margin-right:30px;"> Agendar Partida </a>
                     <a href="./Atleta">Adicionar Atleta</a>
                 </div>
                 <a href="./menu"><img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
-                <a href="./Dados">Buscar Dados</a>
+                <div class="nav-links">
+                    <a href="./Dados" style="margin-right:30px;">Buscar Dados</a>
+                    <a href="./DadosPartidas">Buscar Partidas</a>
+                </div>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="mobile-menu">
+                    <a href="./Agendar"> Agendar Partida </a>
+                    <a href="./Atleta">Adicionar Atleta</a>
+                    <a href="./Dados">Buscar Dados</a>
+                    <a href="./DadosPartidas">Buscar Partidas</a>
+                </div>
             </div>
 
             <form id="updateForm">
@@ -80,26 +94,26 @@
 
                 <div class="line1">
                     <div class="busca-atleta1">
-                        <input type="text" name="atleta1" id="atleta1" placeholder="Atleta 1" required>
+                        <input type="text" name="atleta1" id="atleta1" placeholder="Atleta 1" required maxlength="80">
                         <ul id="listaAtleta1">
 
                         </ul>
                     </div>
-                    <input type="number" name="ponto1" id="ponto1" required>
-                    <input type="text" name="falta1" id="falta1" placeholder="Faltas">
+                    <input type="number" name="ponto1" id="ponto1" required maxlength="5">
+                    <input type="text" name="falta1" id="falta1" placeholder="Faltas" maxlength="200">
                 </div>
 
                 <p class="rounds">Rounds</p>
 
                 <div class="line1">
                     <div class="busca-atleta2">
-                        <input type="text" name="atleta2" id="atleta2" placeholder="Atleta 2" required>
+                        <input type="text" name="atleta2" id="atleta2" placeholder="Atleta 2" required maxlength="80">
                         <ul id="listaAtleta2">
 
                         </ul>
                     </div>
-                    <input type="number" name="ponto2" id="ponto2" required>
-                    <input type="text" name="falta2" id="falta2" placeholder="Faltas">
+                    <input type="number" name="ponto2" id="ponto2" required maxlength="5">
+                    <input type="text" name="falta2" id="falta2" placeholder="Faltas" maxlength="200">
                 </div>
 
                 <div class="line3">
@@ -109,14 +123,15 @@
 
                 <div class="line4">
                     <p>Local</p>
-                    <input type="text" name="local" id="local" placeholder="Cidade">
+                    <input type="text" name="local" id="local" placeholder="Cidade" maxlength="64">
                 </div>
 
                 <input type="submit" class="submit" value="Adicionar Partida">
 
             </form>
 
-            <div id="confirmationMessage" style="margin:5px;display: none; color: green;">Partida atualizada com sucesso!</div>
+            <div id="confirmationMessage" style="margin:5px;display: none; color: green;">Partida atualizada com
+                sucesso!</div>
 
         </div>
 
@@ -238,6 +253,20 @@
                     alert('Erro ao atualizar a partida');
                 });
         });
+
+        function toggleMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('show');
+        }
+
+        window.addEventListener('click', function(event) {
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const hamburger = document.querySelector('.hamburger');
+
+        if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+            mobileMenu.classList.remove('show');
+        }
+    });
 
     </script>
 

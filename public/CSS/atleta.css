@@ -28,6 +28,7 @@ html{
 
 a {
     text-decoration: none;
+    font-size: 20px;
 }
 
 /* Main */
@@ -41,7 +42,7 @@ a {
 
 .header {
     display: grid;
-    width: 50vw;
+    width: 60vw;
     grid-template-columns: 1fr 0.5fr 1fr;
     place-items:center;
 }

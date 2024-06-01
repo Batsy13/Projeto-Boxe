@@ -5,15 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Dados</title>
-    <link rel="stylesheet" href="CSS/dados.css">
+    <link rel="stylesheet" href="CSS/dadospartidas.css">
     <link rel="shortcut icon" type="imagex/png" href="./IMG/france-logo-init.png">
 </head>
 
 <body>
     <section class="main-bg page">
-
         <div class="conteiner">
-
             <div class="header">
                 <div class="nav-links">
                     <a href="./Agendar" style="margin-right:30px;"> Agendar Partida </a>
@@ -22,7 +20,7 @@
                 <a href="./menu"><img src="./IMG/logo-olim-juiz.png" alt="Ícone das Olimpíadas" class="logo"></a>
                 <div class="nav-links">
                     <a href="./Atleta" style="margin-right:30px;">Cadastrar Atleta</a>
-                    <a href="./DadosPartidas">Buscar Partidas</a>
+                    <a href="./Dados">Buscar Dados</a>
                 </div>
                 <div class="hamburger" onclick="toggleMenu()">
                     <span></span>
@@ -36,37 +34,55 @@
                     <a href="./DadosPartidas">Buscar Partidas</a>
                 </div>
             </div>
-            <input type="text" id="search" placeholder="Pesquisar" maxlength="64">
+            <input type="text" id="search" placeholder="Pesquisar">
             <ul id="lista">
-
             </ul>
         </div>
-
     </section>
 
-
     <script>
-
-        fetch('/api/atletas')
+        fetch('/api/partidas')
             .then(res => res.json())
-            .then(atletas => {
+            .then(partidas => {
                 const ul = document.getElementById('lista');
-                atletas.forEach(atleta => {
+                partidas.forEach(partida => {
                     const li = document.createElement('li');
-                    li.innerHTML = atleta.athlete + ' <div> <svg id="edit-' + atleta._id + '" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M30 0L25 5L35 15L40 10L30 0ZM20 10L0 30V40H10L30 20L20 10Z" fill="#F2F2F3"/></svg> <svg id="delete-' + atleta._id + '" width="36" height="41" viewBox="0 0 36 41" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.375 0C12.5562 0 10.25 2.30625 10.25 5.125H5.125C2.30625 5.125 0 7.43125 0 10.25H35.875C35.875 7.43125 33.5688 5.125 30.75 5.125H25.625C25.625 2.30625 23.3188 0 20.5 0H15.375ZM5.125 15.375V40.0262C5.125 40.59 5.535 41 6.09875 41H29.8275C30.3913 41 30.8013 40.59 30.8013 40.0262V15.375H25.6763V33.3125C25.6763 34.7475 24.5488 35.875 23.1138 35.875C21.6788 35.875 20.5513 34.7475 20.5513 33.3125V15.375H15.4262V33.3125C15.4262 34.7475 14.2987 35.875 12.8637 35.875C11.4287 35.875 10.3012 34.7475 10.3012 33.3125V15.375H5.17625H5.125Z" fill="#F2F2F3"/></svg> </div>'
+                    li.innerHTML = `
+                    <div class="partida-header">
+        ${getCategoriaDescricao(partida.id_categoria)} - ${partida.fase}
+    </div>
+    <div class="action-icons">
+        <svg id="edit-${partida._id}" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 0L25 5L35 15L40 10L30 0ZM20 10L0 30V40H10L30 20L20 10Z" fill="#F2F2F3"/>
+        </svg>
+        <svg id="delete-${partida._id}" width="36" height="41" viewBox="0 0 36 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.375 0C12.5562 0 10.25 2.30625 10.25 5.125H5.125C2.30625 5.125 0 7.43125 0 10.25H35.875C35.875 7.43125 33.5688 5.125 30.75 5.125H25.625C25.625 2.30625 23.3188 0 20.5 0H15.375ZM5.125 15.375V40.0262C5.125 40.59 5.535 41 6.09875 41H29.8275C30.3913 41 30.8013 40.59 30.8013 40.0262V15.375H25.6763V33.3125C25.6763 34.7475 24.5488 35.875 23.1138 35.875C21.6788 35.875 20.5513 34.7475 20.5513 33.3125V15.375H15.4262V33.3125C15.4262 34.7475 14.2987 35.875 12.8637 35.875C11.4287 35.875 10.3012 34.7475 10.3012 33.3125V15.375H5.17625H5.125Z" fill="#F2F2F3"/>
+        </svg>
+    </div>
+    <div class="partida-info">
+        <div class="atleta">Atleta 1:</div>
+        <div class="pontos">${partida.id_atleta} - Pontos: ${partida.ponto1}</div>
+    </div>
+    <div class="partida-info">
+        <div class="atleta">Atleta 2:</div>
+        <div class="pontos">${partida.id_atleta2} - Pontos: ${partida.ponto2}</div>
+    </div>
+`;
                     ul.appendChild(li);
 
                     // Adiciona evento de clique ao elemento SVG de edição
-                    document.getElementById('edit-' + atleta._id).addEventListener('click', function () { editarAtleta(atleta._id); });
+                    document.getElementById('edit-' + partida._id).addEventListener('click', function () {
+                        editarPartida(partida._id);
+                    });
 
                     // Adiciona evento de clique ao elemento SVG de exclusão
-                    document.getElementById('delete-' + atleta._id).addEventListener('click', function () {
-                        excluirAtleta(atleta._id);
+                    document.getElementById('delete-' + partida._id).addEventListener('click', function () {
+                        excluirPartida(partida._id);
                     });
                 });
             });
 
-        function editarAtleta(id) {
+        function editarPartida(id) {
             // Cria o elemento de popup
             const popup = document.createElement('div');
             popup.className = 'conteiner';
@@ -82,31 +98,27 @@
             form.className = 'form';
             form.addEventListener('submit', function (event) {
                 event.preventDefault();
-                const novosDadosDoAtleta = {
-                    country: form.country.value,
-                    weight: form.weight_category.value,
-                    athlete: form.athlete.value,
-                    age: form.age.value
+                const novosDadosDaPartida = {
+                    id_atleta: form.location.value,
+                    id_atleta2: form.participants.value,
+                    ponto1: form.ponto1.value,
+                    ponto2: form.ponto2.value,
+                    falta1: form.falta1.value,
+                    falta2: form.falta2.value,
                 };
-                atualizarAtleta(id, novosDadosDoAtleta);
+                atualizarPartida(id, novosDadosDaPartida);
                 document.body.removeChild(popup);
             });
 
-            const props = ['country', 'weight', 'athlete', 'age'];
-            const placeholders = ['país', 'peso', 'atleta', 'idade'];
+            const props = ['id_atleta', 'id_atleta2', 'ponto1', 'ponto2', 'falta1', 'falta2'];
+            const placeholders = ['atleta1', 'atleta2', 'ponto1', 'ponto2', 'falta1', 'falta2'];
 
             props.forEach(function (prop, index) {
                 const input = document.createElement('input');
                 input.className = 'inputs';
                 input.type = 'text';
                 input.name = prop;
-                if (index == 3) {
-                    input.placeholder = "Nova " + placeholders[index];
-                }
-                else {
-                    input.placeholder = "Novo " + placeholders[index];
-                }
-
+                input.placeholder = placeholders[index];
                 form.appendChild(input);
             });
 
@@ -125,8 +137,10 @@
             const submit = document.createElement('input');
             submit.className = 'submit';
             submit.type = 'submit';
-            submit.value = 'Atualizar Atleta';
+            submit.value = 'Atualizar Partida';
             buttonContainer.appendChild(submit);
+
+
 
             form.appendChild(buttonContainer);
 
@@ -135,13 +149,13 @@
             document.body.appendChild(popup);
         }
 
-        function atualizarAtleta(id, novosDadosDoAtleta) {
-            fetch('/api/atletas/' + id, {
+        function atualizarPartida(id, novosDadosDaPartida) {
+            fetch('/api/partidas/' + id, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(novosDadosDoAtleta),
+                body: JSON.stringify(novosDadosDaPartida),
             })
                 .then(response => response.json())
                 .then(data => {
@@ -152,24 +166,20 @@
                 });
         }
 
-
-        function excluirAtleta(id, li) {
-            fetch('/api/atletas/' + id, {
+        function excluirPartida(id) {
+            fetch('/api/partidas/' + id, {
                 method: 'DELETE',
             })
                 .then(response => response.json())
                 .then(data => {
                     console.log('Sucesso:', data);
-                    // Remove o elemento li do DOM
-                    li.parentNode.removeChild(li);
                 })
                 .catch((error) => {
                     console.error('Erro:', error);
                 });
         }
 
-        // Adicione esta função ao seu código
-        function filtrarAtletas() {
+        function filtrarPartidas() {
             const input = document.getElementById('search');
             const filter = input.value.toUpperCase();
             const ul = document.getElementById('lista');
@@ -185,9 +195,28 @@
             }
         }
 
-        // Adicione este evento de entrada ao campo de pesquisa
-        document.getElementById('search').addEventListener('input', filtrarAtletas);
+        const categoriaMap = {
+            1: "Peso Mosca",
+            2: "Peso Pena",
+            3: "Peso Leve",
+            4: "Meio-Médio",
+            5: "Peso Médio",
+            6: "Meio-Pesado",
+            7: "Pesado",
+            8: "Super Pesado",
+            9: "Peso Mosca",
+            10: "Peso Pena",
+            11: "Peso Leve",
+            12: "Peso Meio-Médio",
+            13: "Peso Médio"
+        };
 
+        function getCategoriaDescricao(id_categoria) {
+            return categoriaMap[id_categoria] || "Categoria desconhecida";
+        }
+
+
+        document.getElementById('search').addEventListener('input', filtrarPartidas);
 
         function toggleMenu() {
             const mobileMenu = document.querySelector('.mobile-menu');
@@ -202,11 +231,7 @@
                 mobileMenu.classList.remove('show');
             }
         });
-
     </script>
-
-
 </body>
-
 
 </html>

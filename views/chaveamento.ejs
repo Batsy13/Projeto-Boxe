@@ -15,20 +15,8 @@
             <div class="div-logo">
                 <a href="/"><img class="logo-olim" src="./IMG/france-logo-init.png" alt="Logo das olimpiadas"></a>
             </div>
-            <div class="hamb">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <svg width="27" height="25" viewBox="0 0 27 25" fill="none"
-                                xmlns="http://www.w3.org/2000/   svg">
-                                <path d="M26.6491 0H0V2.72222H26.6491V0Z" fill="#F2F2F3" />
-                                <path d="M26.6491 21.7778H0V24.5H26.6491V21.7778Z" fill="#F2F2F3" />
-                                <path d="M26.6491 10.8889H0V13.6111H26.6491V10.8889Z" fill="#F2F2F3" />
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <h1 class="titulo">Colocações</h1>
+            <p style="display:hidden;"></p>
         </nav>
 
         <div class="content" style="display:flex;">
@@ -50,7 +38,24 @@
                 <div class="category" onclick="mostrar('12')">Meio-Médio 64-69kg</div>
                 <div class="category" onclick="mostrar('13')">Peso Médio 70-75kg</div>
             </aside>
-
+            <select class="category-selector">
+                <optgroup class="category classe">Masculino</optgroup>
+                <option class="category" onclick="mostrar('1')">Peso Mosca 48-52kg</option>
+                <option class="category" onclick="mostrar('2')">Peso Pena 53-57kg</option>
+                <option class="category" onclick="mostrar('3')">Peso Leve 58-63kg</option>
+                <option class="category" onclick="mostrar('4')">Meio-Médio 64-69kg</option>
+                <option class="category" onclick="mostrar('5')">Peso Médio 70-75kg</option>
+                <option class="category" onclick="mostrar('6')">Meio-Pesado 76-81kg</option>
+                <option class="category" onclick="mostrar('7')">Pesado 82-91kg</option>
+                <option class="category">Super Pesado +91kg</option>
+                <optgroup class="category classe">Feminino</optgroup>
+                <option class="category" onclick="mostrar('9')">Peso Mosca 48-51kg</option>
+                <option class="category" onclick="mostrar('10')">Peso Pena 52-57kg</option>
+                <option class="category" onclick="mostrar('11')">Peso Leve 58-63kg</option>
+                <option class="category" onclick="mostrar('12')">Meio-Médio 64-69kg</option>
+                <option class="category" onclick="mostrar('13')">Peso Médio 70-75kg</option>
+             
+            </select>
             <div class="main-content" id="main-content">
                 <div class="prim">
                     <div class="conteinerzin">
@@ -216,13 +221,19 @@
 
                     // Atualiza elementos do segundo lutador
                     // imgElement2.src = partida.img_url2;
-                    nomeElement2.textContent = partida.id_atleta2; 
+                    nomeElement2.textContent = partida.id_atleta2;
                     numElement2.textContent = partida.ponto2;
                 });
             } catch (error) {
                 console.error('Erro ao buscar partidas:', error);
             }
         }
+
+        function selecionarCategoria(categoria) {
+            console.log(categoria);
+            mostrar(categoria);
+        }
+
     </script>
 </body>
 

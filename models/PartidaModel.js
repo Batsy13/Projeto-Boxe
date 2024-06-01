@@ -3,31 +3,43 @@ const Schema = mongoose.Schema
 
 var partida = new Schema({
     id_categoria: {
-        type: String
+        type: String,
     },
     id_partida: {
-        type: String
+        type: String,
     },
     id_atleta: {
-        type:String
+        type:String,
+    },
+    nome_atleta: {
+        type:String,
     },
     id_atleta2: {
-        type:String
+        type:String,
+    },
+    nome_atleta2: {
+        type:String,
     },
     ponto1: {
-        type:Number
+        type:Number,
     },
     ponto2: {
-        type:Number
+        type:Number,
     },
     falta1: {
-        type:String
+        type:String,
     },
     falta2: {
-        type:String
+        type:String,
     },
     date: {
-        type:Date
+        type:Date,
+    },
+    id_vencedor: {
+        type:String,
+    },
+    id_perdedor: {
+        type:String,
     },
     local: {
         type:String
