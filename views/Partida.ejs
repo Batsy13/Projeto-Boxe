@@ -184,11 +184,23 @@
         document.getElementById('categoria').addEventListener('change', fetchPartidaData);
         document.getElementById('partida1').addEventListener('change', fetchPartidaData);
 
+        function clearInputs() {
+            document.getElementById('atleta1').value = '';
+            document.getElementById('ponto1').value = '';
+            document.getElementById('falta1').value = '';
+            document.getElementById('atleta2').value = '';
+            document.getElementById('ponto2').value = '';
+            document.getElementById('falta2').value = '';
+            document.getElementById('date1').value = '';
+            document.getElementById('local').value = '';
+        }
+
         function fetchPartidaData() {
             const categoria = document.getElementById('categoria').value;
             const partida = document.getElementById('partida1').value;
 
             if (categoria && partida) {
+                clearInputs();
                 fetch(`/api/partida?categoria=${categoria}&partida1=${partida}`)
                     .then(response => response.json())
                     .then(data => {
@@ -237,7 +249,6 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Partida atualizada com sucesso:', data);
 
                     const confirmationMessage = document.getElementById('confirmationMessage');
                     confirmationMessage.style.display = 'block';
@@ -260,13 +271,13 @@
         }
 
         window.addEventListener('click', function(event) {
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const hamburger = document.querySelector('.hamburger');
 
-        if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
-            mobileMenu.classList.remove('show');
-        }
-    });
+            if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                mobileMenu.classList.remove('show');
+            }
+        });
 
     </script>
 
