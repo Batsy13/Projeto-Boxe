@@ -46,6 +46,7 @@
 
 
     <script>
+        const externalApiUrl = 'https://olimpiadasiesb-7780607c931d.herokuapp.com/';
 
         fetch('/api/atletas')
             .then(res => res.json())
@@ -61,7 +62,7 @@
 
                     // Adiciona evento de clique ao elemento SVG de exclusão
                     document.getElementById('delete-' + atleta._id).addEventListener('click', function () {
-                        excluirAtleta(atleta._id);
+                        excluirAtleta(atleta._id, li);
                     });
                 });
             });
@@ -136,6 +137,7 @@
         }
 
         function atualizarAtleta(id, novosDadosDoAtleta) {
+            // Atualiza na API interna
             fetch('/api/atletas/' + id, {
                 method: 'PUT',
                 headers: {
@@ -145,30 +147,57 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Sucesso:', data);
+                    console.log('Sucesso na atualização interna:', data);
                 })
                 .catch((error) => {
-                    console.error('Erro:', error);
+                    console.error('Erro na atualização interna:', error);
+                });
+
+            // Atualiza na API externa
+            fetch(externalApiUrl + 'atletas?_id=' + id, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(novosDadosDoAtleta),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Sucesso na atualização externa:', data);
+                })
+                .catch((error) => {
+                    console.error('Erro na atualização externa:', error);
                 });
         }
 
-
         function excluirAtleta(id, li) {
+            // Remove da API interna
             fetch('/api/atletas/' + id, {
                 method: 'DELETE',
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Sucesso:', data);
+                    console.log('Sucesso na exclusão interna:', data);
                     // Remove o elemento li do DOM
                     li.parentNode.removeChild(li);
                 })
                 .catch((error) => {
-                    console.error('Erro:', error);
+                    console.error('Erro na exclusão interna:', error);
+                });
+
+            // Remove da API externa
+            fetch(externalApiUrl + 'atletas?_id=' + id, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Sucesso na exclusão externa:', data);
+                })
+                .catch((error) => {
+                    console.error('Erro na exclusão externa:', error);
                 });
         }
 
-        // Adicione esta função ao seu código
         function filtrarAtletas() {
             const input = document.getElementById('search');
             const filter = input.value.toUpperCase();
@@ -185,9 +214,7 @@
             }
         }
 
-        // Adicione este evento de entrada ao campo de pesquisa
         document.getElementById('search').addEventListener('input', filtrarAtletas);
-
 
         function toggleMenu() {
             const mobileMenu = document.querySelector('.mobile-menu');
@@ -205,8 +232,6 @@
 
     </script>
 
-
 </body>
-
 
 </html>

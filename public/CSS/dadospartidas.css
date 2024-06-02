@@ -37,7 +37,6 @@ a {
     background-color: var(--background-page);
 }
 
-
 /* Header */
 
 .header {
@@ -46,8 +45,6 @@ a {
     grid-template-columns: 1fr 0.5fr 1fr;
     place-items: center;
 }
-
-
 
 /* Conteiner */
 
@@ -98,7 +95,7 @@ img {
     cursor: pointer;
 }
 
-#lista>li {
+#lista > li {
     border: 1px solid #4E4E4E;
     display: grid;
     place-items: center;
@@ -106,9 +103,10 @@ img {
     width: 75vw;
     padding: 12px;
     color: var(--text);
+    font-size: 1rem; /* Ajuste para o tamanho base */
 }
 
-#lista>li>div>svg {
+#lista > li > div > svg {
     cursor: pointer;
     margin-right: 20px;
 }
@@ -122,7 +120,6 @@ img {
     cursor: text;
     text-align: center;
     margin: 1em;
-
 }
 
 input:focus,
@@ -133,19 +130,6 @@ select {
 .logo {
     width: 5.75em;
     height: 3.2em;
-}
-
-.submit {
-    width: 12.5em;
-    height: 2.6em;
-    background-color: rgba(19, 31, 10, 0.5);
-    border-style: none;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    margin-top: 2rem;
 }
 
 .cancel {
@@ -160,7 +144,6 @@ select {
     align-items: center;
     margin: auto;
     margin-top: 2rem;
-
 }
 
 /* Webkits Disable */
@@ -178,7 +161,6 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
-
 
 /* Divs comportamento */
 
@@ -267,21 +249,47 @@ input[type="search"]::-webkit-search-cancel-button {
     z-index: 3000;
 }
 
-@media (max-width: 768px) {
-
-    .rounds {
-        display: none;
+@media (max-width: 1024px) {
+    * {
+        font-size: 22px; /* Adjust the base font size */
     }
 
-   
+    #lista > li {
+        font-size: 0.9rem; /* Adjust size for list items */
+    }
 
-    input {
-        margin: 15px;
+    .conteiner {
+        width: 90vw;
+    }
+
+    .header {
+        width: 80vw;
+        grid-template-columns: 1fr 0.5fr 1fr;
+    }
+
+    #search {
+        width: 60vw;
+    }
+}
+
+@media (max-width: 768px) {
+    * {
+        font-size: 20px; /* Adjust the base font size */
+    }
+
+    #lista > li {
+        font-size: 0.8rem; /* Adjust size for list items */
+        grid-template-columns: 1fr;
+    }
+
+    .conteiner {
+        width: 95vw;
     }
 
     .header {
         width: 90vw;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .nav-links {
@@ -296,23 +304,14 @@ input[type="search"]::-webkit-search-cancel-button {
         display: flex;
     }
 
-
-    .conteiner {
-        width: 95vw;
-    }
-
-    .header {
-        width: 90vw;
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
     .header a {
         margin: 0;
+        font-size: 18px;
     }
 
     input, select {
-        width: 60vw;
+        width: 70vw;
+        font-size: 18px;
     }
 
     .line1 {
@@ -328,9 +327,22 @@ input[type="search"]::-webkit-search-cancel-button {
     #listaCategorias, #ListaPartidas, #listaAtleta1, #listaAtleta2 {
         width: 80vw;
     }
+
+    .submit, .cancel {
+        width: 70vw;
+        font-size: 18px;
+    }
 }
 
 @media (max-width: 480px) {
+    * {
+        font-size: 18px; /* Adjust the base font size */
+    }
+
+    #lista > li {
+        font-size: 0.7rem; /* Adjust size for list items */
+    }
+
     .header img {
         width: 100px;
         height: auto;
@@ -343,12 +355,12 @@ input[type="search"]::-webkit-search-cancel-button {
     }
 
     .header a {
-        font-size: 18px;
+        font-size: 16px;
     }
 
     input, select {
         width: 90vw;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     .line1 {
@@ -369,9 +381,8 @@ input[type="search"]::-webkit-search-cancel-button {
         width: 90vw;
     }
 
-    .submit {
+    .submit, .cancel {
         width: 90vw;
-        font-size: 20px;
+        font-size: 16px;
     }
 }
-

@@ -2,6 +2,9 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 var partida = new Schema({
+    id_partida_api: {
+        type:String,
+    },
     id_categoria: {
         type: String,
     },
@@ -21,10 +24,10 @@ var partida = new Schema({
         type:String,
     },
     ponto1: {
-        type:Number,
+        type:String,
     },
     ponto2: {
-        type:Number,
+        type:String,
     },
     falta1: {
         type:String,

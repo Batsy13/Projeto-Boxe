@@ -193,10 +193,10 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data) {
-                            document.getElementById('atleta1').value = data.id_atleta || '';
+                            document.getElementById('atleta1').value = data.nome_atleta || '';
                             document.getElementById('ponto1').value = data.ponto1 || '';
                             document.getElementById('falta1').value = data.falta1 || '';
-                            document.getElementById('atleta2').value = data.id_atleta2 || '';
+                            document.getElementById('atleta2').value = data.nome_atleta2 || '';
                             document.getElementById('ponto2').value = data.ponto2 || '';
                             document.getElementById('falta2').value = data.falta2 || '';
                             document.getElementById('date1').value = data.date || '';

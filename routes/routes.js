@@ -175,11 +175,8 @@ route.post("/Atleta", async (req, res) => {
     try {
       const response = await axios.post(`${url}atletas/${paisid}/${idboxe}`, json);
       const idApi = response.data._id;
-      console.log(response, response.data._id);
-
 
       await atleta.findByIdAndUpdate(newAtleta._id, { id_api: idApi });
-      console.log("Atleta Adicionado ( API ) e id_api atualizado");
     } catch (error) {
       console.log(error);
     }
@@ -195,7 +192,6 @@ route.patch("/Partida", async (req, res) => {
   const { categoria, partida1, atleta1, atleta2, ponto1, ponto2, falta1, falta2 } = req.body;
 
   try {
-
     const atleta1Data = await atleta.findOne({ athlete: atleta1 });
     const atleta2Data = await atleta.findOne({ athlete: atleta2 });
 
@@ -206,20 +202,21 @@ route.patch("/Partida", async (req, res) => {
     const id_atleta1_api = atleta1Data.id_api;
     const id_atleta2_api = atleta2Data.id_api;
 
+    const id_pais_api1 = atleta1Data.country;
+    const id_pais_api2 = atleta2Data.country;
 
     let id_ven_api = "";
     let id_perd_api = "";
 
     if (ponto1 > ponto2) {
-      id_ven_api = id_atleta1_api;
-      id_perd_api = id_atleta2_api;
+      id_ven_api = id_pais_api1;
+      id_perd_api = id_pais_api2;
     } else {
-      id_ven_api = id_atleta2_api;
-      id_perd_api = id_atleta1_api;
+      id_ven_api = id_pais_api2;
+      id_perd_api = id_pais_api1;
     }
 
-
-    const part = await Partida.findOneAndUpdate(
+    const part = await partida.findOneAndUpdate(
       { id_categoria: categoria, id_partida: partida1 },
       {
         nome_atleta: atleta1,
@@ -240,23 +237,40 @@ route.patch("/Partida", async (req, res) => {
       return res.status(404).json({ message: 'Partida não encontrada' });
     }
 
-
-    const partidaData = {
+    const fasec = determinarFase(partida1);
+    let partidaData = {
       detalhes: {
-        pontuacao_atleta1: ponto1,
-        pontuacao_atleta2: ponto2,
-        faltas_atleta1: falta1,
-        faltas_atleta2: falta2,
         vencedor_id: id_ven_api,
         perdedor_id: id_perd_api,
+        pontuacao_atleta1: Number(ponto1),
+        pontuacao_atleta2: Number(ponto2),
+        faltas_atleta1: falta1,
+        faltas_atleta2: falta2,
       }
     };
+
+    if (fasec === 'final') {
+      const semiFinalMatches = await partida.find({ id_categoria: categoria }).where('fase').equals('semis');
+
+      let semiFinalLosers = semiFinalMatches.map(match => ({
+        id: match.id_perdedor,
+        pontos: match.ponto1 > match.ponto2 ? match.ponto2 : match.ponto1
+      }));
+
+      let bronzeMedalist = semiFinalLosers.reduce((prev, current) => (prev.pontos > current.pontos) ? prev : current).id;
+
+      partidaData.resultado = {
+        ouro: id_ven_api,
+        prata: id_perd_api,
+        bronze: bronzeMedalist
+      };
+    }
 
     const json = JSON.stringify(partidaData);
 
     try {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
-      const response = await axios.post(`${url}esportes/${idboxe}/partidas`, json);
+      axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+      const response = await axios.patch(`${url}esportes/${idboxe}/partidas?_id=${part.id_partida_api}`, json);
     } catch (error) {
       console.log(error);
     }
@@ -301,42 +315,46 @@ route.post("/Agendar", async (req, res) => {
       );
       return res.send("<script>  window.alert('Partida Atualizada Com Sucesso'); window.location.href = '/Agendar'</script>");
     } else {
-      await partida.create({
-        id_categoria: req.body.categoria,
-        id_partida: req.body.partida,
-        nome_atleta: req.body.atleta1,
-        id_atleta: atleta1.id_api,
-        nome_atleta2: req.body.atleta2,
-        id_atleta2: atleta2.id_api,
-        ponto1: "",
-        ponto2: "",
-        falta1: "",
-        falta2: "",
-        id_vencedor: "",
-        id_perdedor: "",
-        date: dia,
-        local: req.body.local,
-        fase: fasec,
-      });
-
       try {
         const agendarapi = {
           data: dia,
           local: req.body.local,
           fase: fasec,
           participantes: [
-              atleta1.country,
-              atleta2.country
+            atleta1.country,
+            atleta2.country
           ]
-        }
-        axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`
-        await axios.post(`${url}esportes/${idboxe}/partidas`, agendarapi);
-      }
-      catch (error) {
-        console.log(error);
-      }
+        };
 
-      return res.send("<script>  window.alert('Partida Agendada Com Sucesso'); window.location.href = '/Agendar'</script>");
+        axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+        const response = await axios.post(`${url}esportes/${idboxe}/partidas`, agendarapi);
+
+        const idPartidaApi = response.data._id;
+
+        await partida.create({
+          id_partida_api: idPartidaApi,
+          id_categoria: req.body.categoria,
+          id_partida: req.body.partida,
+          nome_atleta: req.body.atleta1,
+          id_atleta: atleta1.id_api,
+          nome_atleta2: req.body.atleta2,
+          id_atleta2: atleta2.id_api,
+          ponto1: "",
+          ponto2: "",
+          falta1: "",
+          falta2: "",
+          id_vencedor: "",
+          id_perdedor: "",
+          date: dia,
+          local: req.body.local,
+          fase: fasec,
+        });
+
+        return res.send("<script>  window.alert('Partida Agendada Com Sucesso'); window.location.href = '/Agendar'</script>");
+      } catch (error) {
+        console.log(error);
+        return res.send("<script>  window.alert('Houve um Erro ao agendar a partida'); window.location.href = '/Agendar'</script>");
+      }
     }
   } catch (error) {
     console.error(error);

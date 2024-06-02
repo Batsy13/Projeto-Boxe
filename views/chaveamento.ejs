@@ -38,23 +38,22 @@
                 <div class="category" onclick="mostrar('12')">Meio-Médio 64-69kg</div>
                 <div class="category" onclick="mostrar('13')">Peso Médio 70-75kg</div>
             </aside>
-            <select class="category-selector">
+            <select id="category-selector" class="category-selector">
                 <optgroup class="category classe">Masculino</optgroup>
-                <option class="category" onclick="mostrar('1')">Peso Mosca 48-52kg</option>
-                <option class="category" onclick="mostrar('2')">Peso Pena 53-57kg</option>
-                <option class="category" onclick="mostrar('3')">Peso Leve 58-63kg</option>
-                <option class="category" onclick="mostrar('4')">Meio-Médio 64-69kg</option>
-                <option class="category" onclick="mostrar('5')">Peso Médio 70-75kg</option>
-                <option class="category" onclick="mostrar('6')">Meio-Pesado 76-81kg</option>
-                <option class="category" onclick="mostrar('7')">Pesado 82-91kg</option>
-                <option class="category">Super Pesado +91kg</option>
+                <option value="1" class="category">Peso Mosca 48-52kg</option>
+                <option value="2" class="category">Peso Pena 53-57kg</option>
+                <option value="3" class="category">Peso Leve 58-63kg</option>
+                <option value="4" class="category">Meio-Médio 64-69kg</option>
+                <option value="5" class="category">Peso Médio 70-75kg</option>
+                <option value="6" class="category">Meio-Pesado 76-81kg</option>
+                <option value="7" class="category">Pesado 82-91kg</option>
+                <option value="8" class="category">Super Pesado +91kg</option>
                 <optgroup class="category classe">Feminino</optgroup>
-                <option class="category" onclick="mostrar('9')">Peso Mosca 48-51kg</option>
-                <option class="category" onclick="mostrar('10')">Peso Pena 52-57kg</option>
-                <option class="category" onclick="mostrar('11')">Peso Leve 58-63kg</option>
-                <option class="category" onclick="mostrar('12')">Meio-Médio 64-69kg</option>
-                <option class="category" onclick="mostrar('13')">Peso Médio 70-75kg</option>
-             
+                <option value="9" class="category">Peso Mosca 48-51kg</option>
+                <option value="10" class="category">Peso Pena 52-57kg</option>
+                <option value="11" class="category">Peso Leve 58-63kg</option>
+                <option value="12" class="category">Meio-Médio 64-69kg</option>
+                <option value="13" class="category">Peso Médio 70-75kg</option>
             </select>
             <div class="main-content" id="main-content">
                 <div class="prim">
@@ -216,12 +215,12 @@
 
                     // Atualiza elementos do primeiro lutador
                     // imgElement1.src = partida.img_url1; 
-                    nomeElement1.textContent = partida.id_atleta;
+                    nomeElement1.textContent = partida.nome_atleta;
                     numElement1.textContent = partida.ponto1;
 
                     // Atualiza elementos do segundo lutador
                     // imgElement2.src = partida.img_url2;
-                    nomeElement2.textContent = partida.id_atleta2;
+                    nomeElement2.textContent = partida.nome_atleta2;
                     numElement2.textContent = partida.ponto2;
                 });
             } catch (error) {
@@ -230,9 +229,15 @@
         }
 
         function selecionarCategoria(categoria) {
-            console.log(categoria);
             mostrar(categoria);
         }
+
+        document.getElementById('category-selector').addEventListener('change', function () {
+            const categoria = this.value;
+            mostrar(categoria);
+        });
+
+        mostrar(1);
 
     </script>
 </body>
